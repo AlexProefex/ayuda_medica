@@ -1,0 +1,321 @@
+asyncapi: '2.4.0'
+id: 'urn:com:gitter:streaming:api'
+info:
+  title: Kiru Docs
+  version: '1.0.0'
+
+servers:
+  production:
+    url: https://kiru.proefexperu.com/web/api/
+    protocol: https
+    protocolVersion: '1.1'
+    security:
+      - httpBearerToken: []
+#Route of the maps
+channels:
+  /patients:
+    subscribe:
+      bindings:
+        GET:
+          type: response
+      message:
+        $ref: '#/components/messages/patient' 
+
+  /patients/{idPatient}/:
+    parameters:
+      idPatient:
+        description: Id of patient.
+        schema:
+          type: integer
+    subscribe:
+      bindings:
+        GET:
+          type: response
+      message:
+        $ref: '#/components/messages/patientShow' 
+
+  /get-image-patients/{name}:
+    parameters:
+      name:
+        description: name of image to search.
+        schema:
+          type: integer
+    subscribe:
+      bindings:
+        GET:
+          type: response
+      message:
+        $ref: '#/components/messages/getImage' 
+
+  /find-patient/{dni}/:
+    parameters:
+      dni:
+        description: unique document of the patient.
+        schema:
+          type: integer
+    subscribe:
+      bindings:
+        GET:
+          type: response
+      message:
+        $ref: '#/components/messages/status' 
+
+  /searchPatient/{text}/:
+    parameters:
+      text:
+        description: text to search for a patient .
+        schema:
+          type: integer
+    subscribe:
+      bindings:
+        GET:
+          type: response
+      message:
+        $ref: '#/components/messages/status' 
+
+  /patients/:
+    publish:
+      bindings:
+        POST:
+          type: request
+      message:
+        $ref: '#/components/messages/status' 
+
+  /patients/{idPatient}:
+    parameters:
+      idPatient:
+        description: text to search for a patient .
+        schema:
+          type: integer
+    publish:
+      bindings:
+        PUT:
+          type: request
+      message:
+        $ref: '#/components/messages/status' 
+
+  
+         
+components:
+  securitySchemes:
+    httpBearerToken:
+      type: http
+      scheme: bearer
+#componentes to use responses
+  schemas:
+    patients:
+      type: object
+      description: List of items to response with name of the key patients.
+      properties:
+        idPatient:
+          type: number
+          description: ID of the message.
+        name:
+          type: string
+          description: first name of the patient.
+        last_name:
+          type: string
+          description: last name of the patient.
+        document_type:
+          type: string
+          description: document type of the patient.
+        document_number:
+          type: number
+          description: unique document number name of the patient.
+        phone_number:
+          type: number
+          description: phone number of the patient.
+          format: optional
+        email:
+          type: string
+          format: email - optional
+          description: email of the patient.
+        avatar:
+          type: string
+          format: url
+          description: uri from the image of the patient.
+        birthdate:
+          type: string
+          format: date-time
+          description: birthdate of the opatient.
+
+        tutorName:
+          type: string
+          format: optional
+          description: name of the person responsible for the patient
+
+        tutorLastName:
+          type: string
+          format: optional
+          description: last name of the person responsible for the patient
+
+        relationship:
+          type: string
+          format: optional
+          description: relationship between the patient and the person in charge
+        
+        diseases:
+          type: string
+          format: Json
+          description: patient's medical history.
+
+    conventions:
+      type: array
+      description: List of items to response with name of the key conventions.
+      discriminator: etc
+      items:
+        type: object
+        properties:
+          idConvention:
+            type: number
+            description: ID of the convention.
+          name:
+            type: string
+            description: name of the convention.
+
+    image:
+      type: object
+      description: List of items to response with name of the key conventions.
+      properties:
+        url:
+          type: string
+          description: url from the image.
+          format: url
+   
+
+    patientsWithConvention:
+      type: array
+      items:
+        - $ref: '#/components/schemas/patients'
+        - $ref: '#/components/schemas/conventions'
+
+    patient:
+      type: array
+      items:
+        - $ref: '#/components/schemas/patients'
+
+
+
+  #Body of the docs
+  messages:
+    patient:
+      schemaFormat: 'application/schema+yaml;version=draft-07'
+      summary: >-
+
+      payload:
+        type: array
+        description: List of items to response.
+        $ref: '#/components/schemas/patient'
+   
+      bindings:
+        status:
+          Success:
+            $ref: '#/components/messageBindings/streamingHeadSuccess'
+          Error: 
+            $ref: '#/components/messageBindings/streamingHeadError'
+
+
+    patientShow:
+      schemaFormat: 'application/schema+yaml;version=draft-07'
+      summary: >-
+
+      payload:
+        type: array
+        description: List of items to response.
+        $ref: '#/components/schemas/patientsWithConvention'
+   
+      bindings:
+        status:
+          Success:
+            $ref: '#/components/messageBindings/streamingHeadSuccesswithConvention'
+          Error: 
+            $ref: '#/components/messageBindings/streamingHeadError'
+
+    getImage:
+      schemaFormat: 'application/schema+yaml;version=draft-07'
+      summary: >-
+
+      payload:
+        type: object
+        description: List of items to response.
+        $ref: '#/components/schemas/image'
+   
+      bindings:
+        status:
+          Success:
+            $ref: '#/components/messageBindings/streamingHeadSuccessImage'
+          Error: 
+            $ref: '#/components/messageBindings/streamingHeadError'
+
+    patientObject:
+      schemaFormat: 'application/schema+yaml;version=draft-07'
+      summary: >-
+
+      payload:
+        type: object
+        description: List of items to response.
+        $ref: '#/components/schemas/patient'
+   
+      bindings:
+        status:
+          Success:
+            $ref: '#/components/messageBindings/streamingHeadSuccess'
+          Error: 
+            $ref: '#/components/messageBindings/streamingHeadError'
+
+
+    status:
+      schemaFormat: 'application/schema+yaml;version=draft-07'
+      summary: >-
+
+      payload:
+        type: array
+        description: List of items to response.
+        $ref: '#/components/schemas/patientsWithConvention'
+   
+      bindings:
+        status:
+          Success:
+            $ref: '#/components/messageBindings/streamingHeadSuccess'
+          Error: 
+            $ref: '#/components/messageBindings/streamingHeadError'
+
+  
+
+  #Header and body from the doct
+  messageBindings:
+    streamingHeadSuccess:
+        headers:
+          'Status': '200'
+          'Domain': '@domain'
+        body:
+          $ref: '#/components/messages/patient/payload'
+    streamingHeadSuccessObject:
+        headers:
+          'Status': '200'
+          'Domain': '@domain'
+        body:
+          $ref: '#/components/messages/patientObject/payload'
+
+          
+
+    streamingHeadSuccesswithConvention:
+        headers:
+          'Status': '200'
+          'Domain': '@domain'
+        body:
+          $ref: '#/components/messages/patientShow/payload'
+
+    streamingHeadSuccessImage:
+        headers:
+          'Status': '200'
+          'Domain': '@domain'
+        body:
+          $ref: '#/components/messages/getImage/payload'
+
+    streamingHeadError:
+        headers:
+          'Status': '500'
+          'Domain': '@domain'
+        body:
+
