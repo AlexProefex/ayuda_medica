@@ -5,6 +5,8 @@ namespace App\Http\Resources\UserAdmins;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Role;
+use Illuminate\Support\Str;
+use App\Models\UserAdmin;
 class UserAdminsObject extends JsonResource
 {
     /**
@@ -33,7 +35,7 @@ class UserAdminsObject extends JsonResource
               'timezone' => $this->whenNotNull($this->timezone),
               'observations' => $this->whenNotNull($this->observations),
               'state' => $this->whenNotNull($this->state),
-              'url' => $this->whenNotNull(Storage::disk('google')->url($this->avatar))
+              'url' => $this->whenNotNull(Storage::disk('avatar')->url(Str::lower(class_basename(new UserAdmin)).'/'.$this->avatar))
             ]
         ];
     }

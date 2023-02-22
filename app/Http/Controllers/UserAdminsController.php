@@ -240,20 +240,11 @@ class UserAdminsController extends BaseController
 
           $useradmin = $this->setDataUserAdminwithValue(new UserAdmin,$input);
           if($useradmin){
-            //$useradmin->avatar = $avatar['avatar_old'];
-            $useradmin->avatar = $avatar;
+            $useradmin->avatar = $avatar['avatar_old'];
+          
             $useradmin->state = 'Activo';
             $useradmin->password = bcrypt($input['password']);
             $useradmin->save();
-            /*
-            if($request->has('consultories')){
-              $consultories = json_decode($input['consultories'],true);
-              foreach ($consultories as $consultory) {
-                $userConsultory = $this->setUserConsultory($useradmin,$consultory);
-                $userConsultory->save();
-              }
-            }
-            */
   
             if($request->has('specialties')){
               $specialties = json_decode($input['specialties'],true);
@@ -290,11 +281,11 @@ class UserAdminsController extends BaseController
         if($res->error){
           DB::rollback();
         }
-        /*if($res->error && $isNewImage)
+        if($res->error && $isNewImage)
         {
           $useradmin = new UserAdmin;
           $this->removeImagePost($request,$useradmin,$avatar);
-        }*/
+        }
         return $this->responseMessage($res->status,$res->title,$res->message);
       }
 
@@ -384,15 +375,14 @@ class UserAdminsController extends BaseController
 
         if($validador->valid){
 
-          //$avatar = $this->hasFileImage($request,$useradmin,"PUT");
-          $avatar = $this->hasFileImage($request,$useradmin ,"PUT");
-
+          
+          $avatar = $this->hasFileImage($request,$useradmin,"PUT");
           $isNewImage=true;
           $useradmin = $this->setDataUserAdminwithValue($useradmin,$input);
           if($useradmin){
 
-            //$useradmin->avatar = $avatar['avatar_new'];
-            $useradmin->avatar = $avatar;
+   
+            $useradmin->avatar = $avatar['avatar_new'];
             $useradmin->state = $input['state'];
             $useradmin->password = $input['password'] !="" ? $input['password'] : $useradmin->password;
             $useradmin->save();
@@ -456,10 +446,51 @@ class UserAdminsController extends BaseController
         $res = $this->responseMessageBody('generalError', 'Ups ha ocurrido un error inesperado'.$e);
         $res->error = true;
       } finally {
-        /*if($res->error && $isNewImage)
+        if($res->error && $isNewImage)
         {
           $this->restoreImage($request,$avatar,new UserAdmin);
-        }*/
+        }
+        if($res->error){
+          DB::rollback();
+        }
+        return $this->responseMessage($res->status,$res->title,$res->message);
+      }
+
+    }
+
+
+    public function updateSchedule(Request $request, $id)
+    {
+      $res = app()->make('stdClass'); 
+      DB::beginTransaction();
+      try {
+        $input = $request->all();
+        $useradmin = UserAdmin::find($id);
+        ///$validador = UserValidation::validateAttributes($input,$email,$document_number,$state);
+       // if($validador->valid){
+            $useradmin->schedule = $input['schedule'];
+            $useradmin->save();
+            DB::commit();
+            //$this->removeImage($request,$useradmin,$avatar);
+            $res = $this->responseMessageBody('success', 'User updated!',new UserAdminsObject($useradmin));
+            $res->error = false;
+   
+        //}
+        //else{
+         // $res = $this->responseMessageBody('rules', 'Campos requeridos!',$validador->data);
+         // $res->error = true;
+       // }
+      } catch(\Illuminate\Database\QueryException $e){
+        $res = $this->responseMessageBody('errorTransaction', 'Peticion fallida'.$e);
+        $res->error = true;
+      } catch (\Exception $e) {
+        $res = $this->responseMessageBody('error', 'Ha ocurrido un error'.$e);
+        $res->error = true;
+      } catch (\Throwable $e) {
+        $res = $this->responseMessageBody('generalError', 'Ups ha ocurrido un error inesperado'.$e);
+        $res->error = true;
+      } finally {
+
         if($res->error){
           DB::rollback();
         }

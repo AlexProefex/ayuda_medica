@@ -39,7 +39,7 @@ class UserAdminsPagination extends ResourceCollection
         {
             $data = app()->make('stdClass');
             $data->avatar = $element->avatar;
-            $data->url = \Storage::disk('google')->temporaryUrl($element->avatar, now()->addMinutes(5));
+            $data->url = Storage::disk('avatar')->temporaryUrl($element->avatar, now()->addMinutes(5));
             $dataArray[] = $data;
             $i++;
         }

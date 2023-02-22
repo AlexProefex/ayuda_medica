@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'google'),
+    'default' => env('FILESYSTEM_DISK', 'avatar'),
     //avatar too google
 
     /*

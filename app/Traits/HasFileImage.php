@@ -10,11 +10,11 @@ trait HasFileImage {
 	//Redonder los numeros a dos decimales 
 	public function hasFileImage($request,$model,$type=""){
 		if($type!==""){
+			return $this->hasFileImageLocalePut($request,$model);
 			//return $this->hasFileImagePut($request,$model);
-			return $this->hasFileImagePut($request,$model);
 		}
-		//return $this->hasFileImageLocalePost($request,$model);
-		return $this->hasFileImagePost($request,$model);
+		return $this->hasFileImageLocalePost($request,$model);
+		//return $this->hasFileImagePost($request,$model);
 	}
 	//Crear imagen de un paciente o usuario
 	private function hasFileImagePost($request){
@@ -54,16 +54,16 @@ trait HasFileImage {
 
 		$input = $request->all();  
 		$lastName = strtolower(preg_replace('/\s+/', '_', trim($input['last_name'])));  
-		//$host = $request->header()['domain'][0];
+		////$host = $request->header()['domain'][0];
 		//$host = $input['domain'];
-		$host = $request->header()['domain'][0];
+		////$host = $request->header()['domain'][0];
 		//dd(class_basename($model));
 		$old = "";
-		//return Storage::disk('avatar')->url($host.'/'.Str::lower(class_basename($useradmin)).'/'.$number.'.'.$extension);
+		//return Storage::disk('avatar')->url(Str::lower(class_basename($useradmin)).'/'.$number.'.'.$extension);
 		if($request->hasFile('avatar')){
 			$extension = $request->file('avatar')->guessExtension();
 			$nameImage = $input['document_number'].'_'.$lastName.'.'.$extension; 
-			$request->file('avatar')->storeAs($host.'/'.Str::lower(class_basename($model)), $nameImage,'avatar'); 
+			$request->file('avatar')->storeAs(Str::lower(class_basename($model)), $nameImage,'avatar'); 
 			$avatar = $nameImage;
 
 		}else{
@@ -78,20 +78,20 @@ trait HasFileImage {
 
 		$input = $request->all();  
 		$lastName = strtolower(preg_replace('/\s+/', '_', trim($input['last_name'])));  
-		//$host = $request->header()['domain'][0];
+		////$host = $request->header()['domain'][0];
 		//$host = $input['domain'];
-		$host = $request->header()['domain'][0];
+		//$host = $request->header()['domain'][0];
 		$old = $model->avatar;
-		//return Storage::disk('avatar')->url($host.'/'.Str::lower(class_basename($useradmin)).'/'.$number.'.'.$extension);
+		//return Storage::disk('avatar')->url(Str::lower(class_basename($useradmin)).'/'.$number.'.'.$extension);
 		if($request->hasFile('avatar')){
 
 			if($model->avatar !== "default-thumbnail.jpg"){
-				Storage::disk('avatar')->move($host.'/'.Str::lower(class_basename($model)).'/'.$model->avatar, $host.'/'.Str::lower(class_basename($model)).'/old/'.$model->avatar);
+				Storage::disk('avatar')->move(Str::lower(class_basename($model)).'/'.$model->avatar, Str::lower(class_basename($model)).'/old/'.$model->avatar);
 			}
-			//Storage::disk('avatar')->delete($host.'/'.Str::lower(class_basename($model)).'/'.$model->avatar); 
+			//Storage::disk('avatar')->delete(Str::lower(class_basename($model)).'/'.$model->avatar); 
 			$extension = $request->file('avatar')->guessExtension();
 			$nameImage = $input['document_number'].'_'.$lastName.'.'.$extension; 
-			$request->file('avatar')->storeAs($host.'/'.Str::lower(class_basename($model)), $nameImage,'avatar'); 
+			$request->file('avatar')->storeAs(Str::lower(class_basename($model)), $nameImage,'avatar'); 
 			$model->avatar = $nameImage;
 		}
 		return ['avatar_new' => $model->avatar,'avatar_old' => $old];
@@ -101,9 +101,9 @@ trait HasFileImage {
 		$input = $request->all(); 
 		$lastName = strtolower(preg_replace('/\s+/', '_', trim($input['last_name'])));   
 		//$host = $input['domain'];
-		$host = $request->header()['domain'][0];
+		//$host = $request->header()['domain'][0];
 		if($avatar['avatar_old'] !== "default-thumbnail.jpg"){
-			Storage::disk('avatar')->delete($host.'/'.Str::lower(class_basename($model)).'/'.$avatar['avatar_old']); 
+			Storage::disk('avatar')->delete(Str::lower(class_basename($model)).'/'.$avatar['avatar_old']); 
 	 	}
 	}
 
@@ -111,9 +111,9 @@ trait HasFileImage {
 		$input = $request->all();  
 		$lastName = strtolower(preg_replace('/\s+/', '_', trim($input['last_name'])));  
 		//$host = $input['domain'];
-		$host = $request->header()['domain'][0];
+		//$host = $request->header()['domain'][0];
 		if($avatar['avatar_old'] !== "default-thumbnail.jpg"){
-			Storage::disk('avatar')->delete($host.'/'.Str::lower(class_basename($model)).'/old/'.$avatar['avatar_old']); 
+			Storage::disk('avatar')->delete(Str::lower(class_basename($model)).'/old/'.$avatar['avatar_old']); 
 	 	}
 	}
 
@@ -121,12 +121,12 @@ trait HasFileImage {
 		$input = $request->all();  
 		$lastName = strtolower(preg_replace('/\s+/', '_', trim($input['last_name'])));  
 		//$host = $input['domain'];
-		$host = $request->header()['domain'][0];
-		if(Storage::disk('avatar')->exists($host.'/'.Str::lower(class_basename($model)).'/'.$avatar['avatar_new'])){
-			Storage::disk('avatar')->delete($host.'/'.Str::lower(class_basename($model)).'/'.$avatar['avatar_new']); 
+		//$host = $request->header()['domain'][0];
+		if(Storage::disk('avatar')->exists(Str::lower(class_basename($model)).'/'.$avatar['avatar_new'])){
+			Storage::disk('avatar')->delete(Str::lower(class_basename($model)).'/'.$avatar['avatar_new']); 
 		}
 		if($avatar['avatar_old']!== "default-thumbnail.jpg"){
-			Storage::disk('avatar')->move($host.'/'.Str::lower(class_basename($model)).'/old/'.$avatar['avatar_old'], $host.'/'.Str::lower(class_basename($model)).'/'.$avatar['avatar_old']);
+			Storage::disk('avatar')->move(Str::lower(class_basename($model)).'/old/'.$avatar['avatar_old'], Str::lower(class_basename($model)).'/'.$avatar['avatar_old']);
 		}
 	}
 	
