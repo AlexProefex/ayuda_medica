@@ -83,7 +83,7 @@ Route::post('/cal',[MeetController::class,'index']);
       Route::put('user/{id}', 'update');
       Route::put('validate-consultory/{id}', 'ruleToscheduleDoctor');
       Route::post('user', 'store');
-      Route::post('schedule/{id}','updateScheduleupdateSchedule');
+      Route::post('schedule/{id}','updateSchedule');
       
     });
     
