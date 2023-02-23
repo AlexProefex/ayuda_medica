@@ -97,7 +97,7 @@ class PatientsController extends BaseController
 				$patients->email = $request->has('email') == true ? $input['email'] : null;
 				$patients->birthdate = $input['birthdate'];
  				$patients->diseases = $input['diseases'];
-				$patients->password = bcrypt($input['password']);
+				//$patients->password = bcrypt($input['password']);
 				/*if(intval($input['edad'])<18){
 					$patients->tutorName = $input['tutorName'];
 					$patients->tutorLastName = $input['tutorLastName'];
