@@ -629,3 +629,16 @@ ul.social-network li {
   padding: 0;
   margin: 0 0 8px 0;
 }
+
+
+.text-privacity > p >a{
+  color: green  !important;
+}
+
+
+.text-privacity > h1{
+  opacity: 0.8;
+  font-weight: bolder;
+}
+
+

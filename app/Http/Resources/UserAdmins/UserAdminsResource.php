@@ -18,10 +18,6 @@ class UserAdminsResource extends JsonResource
      */
     public function toArray($request)
     {
-
-
-
-
          return [
             'idUser'=> $this->whenNotNull($this->idUser),
             'name' =>  $this->whenNotNull($this->name),      
@@ -39,9 +35,7 @@ class UserAdminsResource extends JsonResource
             'observations' => $this->whenNotNull($this->observations),
             'state' => $this->whenNotNull($this->state),
             'url' => $this->whenNotNull(Storage::disk('avatar')->url(Str::lower(class_basename(new UserAdmin)).'/'.$this->avatar))
-
          ];
-        
     }
 }
 

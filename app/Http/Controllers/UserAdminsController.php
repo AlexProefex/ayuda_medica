@@ -173,7 +173,7 @@ class UserAdminsController extends BaseController
       ->get();
       if(is_null($useradmin))
         return $this->responseMessage('not_found','List de Usuarios!',[]);
-        return $this->responseMessage('success','List de Admins!', UserAdminsResource::collection($useradmin)->response()->getData(true));
+       return $this->responseMessage('success','List de Admins!', UserAdminsResource::collection($useradmin));
     }
 
     //Busqueda de los usuarios segun una palabra 
