@@ -20,6 +20,8 @@ use App\Http\Resources\UserAdmins\DoctorResource;
 use App\Http\Resources\UserAdmins\UserAdminsResource;
 use App\Http\Resources\UserAdmins\UserUpdate;
 use App\Http\Resources\UserAdmins\UserAdminsPagination;
+use App\Http\Resources\UserAdmins\UserAdminsResourceSpecialty;
+
 
 use App\Rules\UserValidation;
 use App\Traits\ControlUserUpdate;
@@ -171,9 +173,13 @@ class UserAdminsController extends BaseController
       ->join('roles','roles.idRol','=','user_admins.idRol')
       ->where('user_admins.state','Activo')
       ->get();
+
+     
+
+
       if(is_null($useradmin))
         return $this->responseMessage('not_found','List de Usuarios!',[]);
-       return $this->responseMessage('success','List de Admins!', UserAdminsResource::collection($useradmin));
+       return $this->responseMessage('success','List de Admins!', UserAdminsResourceSpecialty::collection($useradmin));
     }
 
     //Busqueda de los usuarios segun una palabra 

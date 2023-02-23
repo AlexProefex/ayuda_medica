@@ -9,7 +9,7 @@ use App\Models\Specialty;
 use Illuminate\Support\Str;
 use App\Models\UserAdmin;
 
-class UserAdminsResource extends JsonResource
+class UserAdminsResourceSpecialty extends JsonResource
 {
     /**
      * Transform the resource into an array.
