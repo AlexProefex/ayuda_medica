@@ -2,8 +2,9 @@
 
 namespace App\Http\Resources\Patients;
 
+use App\Models\Patients;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-
+use Illuminate\Support\Str;
 class PatientsPaginate extends ResourceCollection
 {
     /**
@@ -29,6 +30,7 @@ class PatientsPaginate extends ResourceCollection
                 'avatar' => $this->whenNotNull($this->avatar),
                 'birthdate'=> $this->whenNotNull($this->birthdate),
                 'diseases' => $this->whenNotNull($this->diseases),
+                'url' => $this->whenNotNull(Storage::disk('avatar')->url(Str::lower(class_basename(new Patients())).'/'.$this->avatar))
              
             
             ],

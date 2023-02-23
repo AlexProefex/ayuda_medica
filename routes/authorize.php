@@ -25,8 +25,8 @@ Route::get('/test', function () {
 });
 
 
-Route::post('/token',[MeetController::class,'showview']);
-Route::get('/token',[MeetController::class,'showview']);
+Route::post('/token',[MeetController::class,'showview2']);
+Route::get('/token',[MeetController::class,'showview2']);
 
 Route::get('/', function () {
     return view('index');
@@ -39,7 +39,7 @@ Route::get('/form', function () {
 });
 
 
-Route::get('/cal',[MeetController::class,'index']);
+Route::get('/cal',[MeetController::class,'index2']);
 
 
 /*

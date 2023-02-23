@@ -10,10 +10,13 @@ use App\Http\Resources\Appointment\AppointmentCollection;
 use App\Http\Resources\Appointment\AppointmentResource;
 use App\Http\Resources\Appointment\AppointmentObject;
 use App\Rules\AppointmentValidation;
-
+use App\Traits\ResponseMessageTrait;
+use Illuminate\Support\Facades\DB;
 class AppointmentController extends BaseController
 {
   
+use ResponseMessageTrait;
+
     //Consulta de todas las citas medicas reservadas
     public function index()
     {
@@ -44,34 +47,71 @@ class AppointmentController extends BaseController
     //Registro de citas medicas
     public function store(Request $request)
     {
+
+      $res = app()->make('stdClass'); 
+      DB::beginTransaction();
       try {
-        $input = $request->all();  
+        $input = $request->all();
         $validador = AppointmentValidation::validateAttributes($input);
         if($validador->valid){
-
-          $appointment = new Appointment;
-          $appointment->idCategory = $input['idCategory'];
-          $appointment->location = $input['location'];
-          $appointment->idDoctor = $input['idDoctor'];
-          $appointment->idPatient = $input['idPatient'];
-          $appointment->idSpecialty = $input['idSpecialty'];
-          $appointment->date = $input['date'];
-          $appointment->time = $input['time'];
-          $appointment->observation = $input['observation'];
-          $appointment->status = 'reservado';
-          $appointment->save(); 
-
-
-          return $this->responseMessage('success','Appointment created!',new AppointmentObject($appointment));
+          
+            $appointment = new Appointment;
+            $appointment->idCategory = $input['idCategory'];
+            $appointment->location = $input['location'];
+            $appointment->idDoctor = $input['idDoctor'];
+            $appointment->idPatient = $input['idPatient'];
+            $appointment->idSpecialty = $input['idSpecialty'];
+            $appointment->date = $input['date'];
+            $appointment->time = $input['time'];
+            $appointment->observation = $input['observation'];
+            $appointment->status = 'reservado';
+            $appointment->save(); 
+            DB::commit();
+      
+            $res = $this->responseMessageBody('success', 'Appointment created!',new AppointmentObject($appointment));
+            $res->error = false;
+   
         }
-        return $this->responseMessage('rules','Campos requeridos',$validador->data);
+        else{
+          $res = $this->responseMessageBody('rules', 'Campos requeridos!',$validador->data);
+          $res->error = true;
+        }
+      } catch(\Illuminate\Database\QueryException $e){
+        $res = $this->responseMessageBody('errorTransaction', 'Peticion fallida'.$e);
+        $res->error = true;
+      } catch (\Exception $e) {
+        $res = $this->responseMessageBody('error', 'Ha ocurrido un error'.$e);
+        $res->error = true;
+      } catch (\Throwable $e) {
+        $res = $this->responseMessageBody('generalError', 'Ups ha ocurrido un error inesperado'.$e);
+        $res->error = true;
+      } finally {
 
-      }catch (\Exception $e) {
-            return $this->responseMessage('errorTransaction', 'Ha ocurrido un error');
-      }catch(\Illuminate\Database\QueryException $e){
-            return $this->responseMessage('error', 'Ups ha ocurrido un error inesperado'.$e);
-      }  
+        if($res->error){
+          DB::rollback();
+          return $this->responseMessage($res->status,$res->title,$res->message);
+        }
+        else{
+
+
+
+          return redirect('http://127.0.0.1:8000/authorize/token');
+
+          return redirect()->action([MeetController::class, 'showview']);
+
+
+          return redirect('https://medical.proyectosproefex.com/test');
+          //->action([MeetController::class, 'showview']);
+          //return redirect('token')
+        }
+   
+      }
         
+    }
+
+    public function hello(){
+      return redirect('http://127.0.0.1:8000/token');
+      return redirect()->action([MeetController::class, 'showview']);
     }
 
     //Listado de citas medicas con los datos del paciente a quien le pertenece

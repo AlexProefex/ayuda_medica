@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources\Patients;
 
+use App\Models\Patients;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Str;
 class PatientsResource extends JsonResource
 {
     /**
@@ -26,7 +27,7 @@ class PatientsResource extends JsonResource
             'avatar' => $this->whenNotNull($this->avatar),
             'birthdate'=> $this->whenNotNull($this->birthdate),
             'diseases' => $this->whenNotNull($this->diseases),
-            'url' => $this->whenNotNull(Storage::url($this->avatar))
+            'url' => $this->whenNotNull(Storage::disk('avatar')->url(Str::lower(class_basename(new Patients())).'/'.$this->avatar))
         ];
     }
 }

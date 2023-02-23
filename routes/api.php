@@ -46,6 +46,9 @@ Route::post('/token',[MeetController::class,'showview']);
 
 Route::apiResource('appointment',AppointmentController::class,['except' => ['destroy']]);
 
+
+Route::get('hello', [AppointmentController::class,'hello']); 
+
 Route::post('/', function () {
     return view('index');
 

@@ -49,7 +49,7 @@ class PatientsValidation implements Rule
         'birthdate' => ['date_format:Y-m-d'],'before:today',
         'document_type' => 'required',
         'phone_number' => 'required|numeric',
-        'password' => 'required',
+        //'password' => 'required',
 
       ];
 
@@ -62,7 +62,7 @@ class PatientsValidation implements Rule
         'birthdate.before' => 'La fecha de nacimiento debe ser anterior a la fecha actual',
         'phone_number.required' => 'El numero de telefono es requerido',
         'phone_number.numeric' => 'El numero de telefono debe ser numerico',
-        'password.required' => 'El password es requerido',
+        //'password.required' => 'El password es requerido',
       ];
 
 
