@@ -83,8 +83,8 @@ class PatientsController extends BaseController
 				//$avatar = $this->hasFileImage($request,$patients);
 				$avatar = $this->hasFileImage($request,new Patients);
   
-				//$patients->avatar = $avatar['avatar_old'];
-				$patients->avatar = $avatar;
+				$patients->avatar = $avatar['avatar_old'];
+				//$patients->avatar = $avatar;
 				$isNewImage = true;
 
 
