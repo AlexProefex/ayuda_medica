@@ -140,11 +140,11 @@ class PatientsController extends BaseController
 			if($res->error){
 				DB::rollback();
 			}
-			/*if($res->error && $isNewImage)
+			if($res->error && $isNewImage)
 			{
 				$patients = new Patients;
-				//$this->removeImagePost($request,$patients,$avatar);
-			}*/
+				$this->removeImagePost($request,$patients,$avatar);
+			}
 	
 			return $this->responseMessage($res->status,$res->title,$res->message);
 		}
@@ -200,8 +200,8 @@ class PatientsController extends BaseController
       $patients = Patients::find($id);
 
       $document_number = $input['document_number'] == $patients->document_number? true :false;
-			$password = is_null($input['password']) ? $patients->password: $input['password'];
-			$input['password'] = is_null($input['password']) ? "-": $input['password'];
+			//$password = is_null($input['password']) ? $patients->password: $input['password'];
+			//$input['password'] = is_null($input['password']) ? "-": $input['password'];
 			$email = true;
       $validador = PatientsValidation::validateAttributes($input,$email,$document_number);
 
@@ -212,11 +212,14 @@ class PatientsController extends BaseController
 
 				$isNewImage=true;
 		
-				//$patients->avatar = $avatar['avatar_new'];
+	
 
 				$avatar = $this->hasFileImage($request,new Patients, "PUT");
 
-				$patients->avatar = $avatar;
+				$patients->avatar = $avatar['avatar_new'];
+			
+
+			
 
 				$patients->name = $input['name'];
 				$patients->last_name = $input['last_name'];
@@ -226,7 +229,7 @@ class PatientsController extends BaseController
 				$patients->email = $request->has('email') == true ? $input['email'] : null;
 				$patients->birthdate = $input['birthdate'];
 				$patients->diseases = $input['diseases'];
-				$patients->password = $password;
+				//$patients->password = $password;
 				/*if(intval($input['edad'])<18){
 					$patients->tutorName = $input['tutorName'];
 					$patients->tutorLastName = $input['tutorLastName'];
@@ -273,10 +276,10 @@ class PatientsController extends BaseController
 			$res = $this->responseMessageBody('generalError', 'Ups ha ocurrido un error inesperado'.$e);
 			$res->error = true;
 		} finally{
-			/*if($res->error && $isNewImage)
+			if($res->error && $isNewImage)
 			{
 				$this->restoreImage($request,$avatar,new Patients);
-			}*/
+			}
 			if($res->error){
 				DB::rollback();
 			}
