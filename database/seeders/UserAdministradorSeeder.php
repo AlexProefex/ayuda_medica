@@ -30,7 +30,7 @@ class UserAdministradorSeeder extends Seeder
           'state' => 'Activo',
           'password'=> bcrypt('123456789'),
           'date' => '2022-08-26',
-          'schedule' => '{}',
+          'schedule' => '[{day: "",checkInTime: null,departureTime: null,disabled: false}]',
           'created_at' => Carbon::now(),
           'updated_at' => Carbon::now(),
         ]);
