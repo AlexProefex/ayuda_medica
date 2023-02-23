@@ -605,5 +605,5 @@ ul.social-network li {
 }
 
 .politics:hover {
-  color: black !important;
+  background-color: yellow;
 }
