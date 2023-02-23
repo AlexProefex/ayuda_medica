@@ -24,6 +24,11 @@ Route::get('/test', function () {
     return view('test.test');
 });
 
+Route::get('/privacy-policy', function () {
+    return view('privacy-policy');
+});
+
+
 
 Route::post('/token',[MeetController::class,'showview']);
 Route::get('/token',[MeetController::class,'showview']);

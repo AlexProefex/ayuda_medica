@@ -150,19 +150,32 @@ class UserAdminsController extends BaseController
 
 
     //Listado de todos los usuarios con el estado activo
-    /*public function getUserAll()
+    public function getUserAll()
     {
       $useradmin = UserAdmin::select(
-        DB::raw("CONCAT(user_admins.last_name,' ',user_admins.name) AS username"),
-        'idUser',
-        'roles.name as rol')
+        'user_admins.name',
+        'user_admins.last_name',
+        'user_admins.document_number',
+        'user_admins.phone_number',
+        'user_admins.email',
+        'user_admins.state',
+        'user_admins.idRol',
+        'user_admins.date',
+        'user_admins.avatar',
+        'user_admins.idUser',
+        'user_admins.schedule',
+        'user_admins.location',
+        'user_admins.timezone',
+        'user_admins.observations',
+        'roles.name as roleName')
       ->join('roles','roles.idRol','=','user_admins.idRol')
       ->where('user_admins.state','Activo')
       ->get();
       if(is_null($useradmin))
         return $this->responseMessage('not_found','List de Usuarios!',[]);
-      return $this->responseMessage('success','List de Admins!',$useradmin);
-    }*/
+        return $this->responseMessage('success','List de Admins!', UserAdminsResource::collection($useradmin)->response()->getData(true));
+    }
+
     //Busqueda de los usuarios segun una palabra 
     public function findUser($text="")
     { 
