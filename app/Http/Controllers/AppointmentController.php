@@ -89,9 +89,10 @@ use ResponseMessageTrait;
 
         if($res->error){
           DB::rollback();
-          return $this->responseMessage($res->status,$res->title,$res->message);
         }
-        else{
+
+        return $this->responseMessage($res->status,$res->title,$res->message);
+        /*else{
 
 
 
@@ -103,7 +104,7 @@ use ResponseMessageTrait;
           return redirect('https://medical.proyectosproefex.com/test');
           //->action([MeetController::class, 'showview']);
           //return redirect('token')
-        }
+        }*/
    
       }
         
