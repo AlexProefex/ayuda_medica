@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\UserAdmin::factory(20)->create();
+ 
         $this->call([
             RolesSeeder::class,
             //SpecialtySeeder::class,
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             //UserConsultorySeeder::class,
             //ConsultoryTreatment::class,
         ]);
-    
+       \App\Models\UserAdmin::factory(30)->create();
        \App\Models\Patients::factory(100)->create();
        // \App\Models\Consultory::factory(1)->create();
     

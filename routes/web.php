@@ -34,6 +34,11 @@ Route::get('/term-conditions', function () {
 });
 
 
+Route::get('/medical-consent', function () {
+    return view('medical-consent');
+});
+
+
 
 Route::post('/token',[MeetController::class,'showview']);
 Route::get('/token',[MeetController::class,'showview']);

@@ -72,8 +72,9 @@
                     </ul>
                     <h4>POLITICAS</h4>
                     <ul class="list-unstyled">
-                      <li><span class="text-foo politics">Terminos y Condiciones de Servicio</span></li>
-                      <li><span class="text-foo politics">Politica de Privacidad</span></li>
+                      <li><span class="text-foo politics"><a  href="/term-conditions">Terminos y Condiciones de Servicio</a></span></li>
+                      <li><span class="text-foo politics"><a href="/privacy-policy"> Politica de Privacidad</a></span></li>
+                      <li><span class="text-foo politics"><a href="/medical-consent">Consentimiento Medico</a></span></li>
                     </ul>
                 </div>
                 <h4>CONTÁCTANOS</h4>

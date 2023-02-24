@@ -641,6 +641,11 @@ ul.social-network li {
   font-weight: bolder;
 }
 
+
+.text-privacity  > h2{
+  color:#07136cc7 ;
+}
+
 .text-privacity > h4{
   color:#07136cc7 ;
 }
@@ -649,6 +654,10 @@ ul.social-network li {
   color:#07136ca8 ;
 }
 
+
+.text-privacity > p > strong{
+  color:#07136cc7 ;
+}
 
 
 
