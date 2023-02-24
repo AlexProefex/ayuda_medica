@@ -26,6 +26,7 @@ use ResponseMessageTrait;
           'appointments.time',
           'appointments.idCategory',
           'appointments.location',
+          'patients.idPatient',
           'patients.name',
           'patients.last_name',
           'appointments.idDoctor',
