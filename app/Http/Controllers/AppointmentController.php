@@ -44,6 +44,34 @@ use ResponseMessageTrait;
 
    
     }
+        //Consulta de todas las citas medicas reservadas
+    public function appointmentByDoctor($id)
+    {
+        $appointment = Appointment::select(
+          'appointments.idAppointments',
+          'appointments.date',
+          'appointments.time',
+          'appointments.idCategory',
+          'appointments.location',
+          'patients.idPatient',
+          'patients.name',
+          'patients.last_name',
+          'appointments.idDoctor',
+          'appointments.status',
+          'appointments.idSpecialty')
+        ->join('patients','patients.idPatient','=','appointments.idPatient')
+        ->where('appointments.status','=','reservado')
+        ->where('appointments.idDoctor','=',$id)
+        ->orderBy('appointments.updated_at', 'desc')
+        ->orderBy('appointments.idAppointments', 'desc')
+        ->get();
+
+        if(is_null($appointment))
+          return $this->responseMessage('not_found','List de Appointment!',"[]");
+        return $this->responseMessage('success','List de Appointment!',AppointmentResource::collection($appointment));
+
+    
+    }
 
     //Registro de citas medicas
     public function store(Request $request)
@@ -188,5 +216,30 @@ use ResponseMessageTrait;
         return $this->responseMessage('error', 'Ups ha ocurrido un error inesperado');
       }  
     }
+
+
+    public function appointmentStatus(Request $request, $id)
+    {
+      try {
+
+        $input = $request->all();  
+        //$validador = AppointmentValidation::validateAttributes($input,false);
+        //if($validador->valid){
+
+          $appointment = Appointment::find($id);
+          $appointment->status = $input['status'];
+          $appointment->save();
+          
+          return $this->responseMessage('success','Appointment created!',new AppointmentObject($appointment));
+        //}
+        ///return $this->responseMessage('rules','Campos requeridos',$validador->data);
+
+      } catch (\Exception $e) {
+        return $this->responseMessage('errorTransaction', 'Ha ocurrido un error');
+      } catch(\Illuminate\Database\QueryException $e){
+        return $this->responseMessage('error', 'Ups ha ocurrido un error inesperado');
+      }  
+    }
+
 
 }

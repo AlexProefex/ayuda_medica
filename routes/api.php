@@ -44,10 +44,8 @@ use App\Http\Controllers\MeetController;
 
 Route::post('/token',[MeetController::class,'showview']);
 
-Route::apiResource('appointment',AppointmentController::class,['except' => ['destroy']]);
 
 
-Route::get('hello', [AppointmentController::class,'hello']); 
 
 Route::post('/', function () {
     return view('index');
@@ -72,6 +70,25 @@ Route::post('/cal',[MeetController::class,'index']);
 
   Route::middleware('auth:sanctum')->group( function () {
   
+
+
+
+
+        
+    Route::controller(AppointmentController::class)->group(function() {
+      Route::get('appointment', 'index');
+      Route::get('appointment/{id}', 'show');
+      Route::put('appointment/{id}', 'update');
+      Route::post('appointment', 'store');
+      Route::get('hello/{id}', 'show');
+      Route::get('appointment-doctor/{id}', 'appointmentByDoctor');
+      Route::put('appointment-status/{id}', 'appointmentStatus');
+      
+    });
+    
+
+
+
     Route::controller(UserAdminsController::class)->group(function() {
       Route::get('user', 'index');
       Route::get('user/{id}', 'show');
