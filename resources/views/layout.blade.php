@@ -17,8 +17,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
     <meta property=”og:type” content=”website” />
-    <meta property=”og:title” content="Proyectos Proefex" />
-    <meta property=”og:description” content="website listing proefex projects where you will find the details of each of them, both new and old" />
     <meta property=”og:image” content="{{asset('imagenes/Transformacion-digital.jpg')}}" />
     <meta property=”og:url” content="https://proyectosproefex.com/" />
 
