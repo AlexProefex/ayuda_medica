@@ -23,7 +23,7 @@
     <meta property=”og:url” content="https://proyectosproefex.com/" />
 
     <link href="{{ asset('css/header.css') }}" rel="stylesheet">
-    {!! SEO::generate() !!}
+      {!! SEO::generate() !!}
 
 
   </head>
