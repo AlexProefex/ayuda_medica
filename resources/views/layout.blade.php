@@ -4,8 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="Proefex, Kirudent, Proyectos, Desarrollo, Tecnologia, Ayuda Medica, Btrix, Sistema TPV, Terminales PV, Chatbots + IA, Marketing Digital, Analitica Web, Proyectos Proefex">
-    <meta name=”title” content="Proyectos Proefex" />
-    <meta name="description" content="website listing proefex projects where you will find the details of each of them, both new and old">
+
     <meta name="author" content="Proefex">
     <meta name="robots" content="index" />
     <link rel="icon" href="{{ asset('imagenes/cropped-favicon-100x100.png') }}" sizes="32x32">
@@ -24,6 +23,7 @@
     <meta property=”og:url” content="https://proyectosproefex.com/" />
 
     <link href="{{ asset('css/header.css') }}" rel="stylesheet">
+    {!! SEO::generate() !!}
 
 
   </head>

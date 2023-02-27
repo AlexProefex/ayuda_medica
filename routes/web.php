@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\MeetController;
 use App\Http\Controllers\UserAdminsController;
-
+use SEO;
 
 
 /*
@@ -25,16 +25,34 @@ Route::get('/test', function () {
 });
 
 Route::get('/privacy-policy', function () {
+    SEO::setTitle('Politicas de privacidad');
+    SEO::setDescription('Politicas de privacidad de Proefex');
+    SEO::opengraph()->setUrl('https://proyectosproefex.com');
+    SEO::setCanonical('https://proyectosproefex.com');
+    SEO::opengraph()->addProperty('type', 'articles');
+    SEO::twitter()->setSite('@proyectosproefex');
     return view('privacy-policy');
 });
 
 
 Route::get('/term-conditions', function () {
+    SEO::setTitle('Terminos y condiciones');
+    SEO::setDescription('Terminos y condiciones de Proefex');
+    SEO::opengraph()->setUrl('https://proyectosproefex.com');
+    SEO::setCanonical('https://proyectosproefex.com');
+    SEO::opengraph()->addProperty('type', 'articles');
+    SEO::twitter()->setSite('@proyectosproefex');
     return view('term-conditions');
 });
 
 
 Route::get('/medical-consent', function () {
+    SEO::setTitle('Consentimiento Medico');
+    SEO::setDescription('Terminos y condiciones de Proefex - ayuda medica');
+    SEO::opengraph()->setUrl('https://proyectosproefex.com');
+    SEO::setCanonical('https://proyectosproefex.com');
+    SEO::opengraph()->addProperty('type', 'articles');
+    SEO::twitter()->setSite('@proyectosproefex');
     return view('medical-consent');
 });
 
@@ -44,6 +62,13 @@ Route::post('/token',[MeetController::class,'showview']);
 Route::get('/token',[MeetController::class,'showview']);
 
 Route::get('/', function () {
+
+    SEO::setTitle('Proyectos Proefex');
+    SEO::setDescription('website listing proefex projects where you will find the details of each of them, both new and old');
+    SEO::opengraph()->setUrl('https://proyectosproefex.com');
+    SEO::setCanonical('https://proyectosproefex.com');
+    SEO::opengraph()->addProperty('type', 'articles');
+    SEO::twitter()->setSite('@proyectosproefex');
     return view('index');
 
 });

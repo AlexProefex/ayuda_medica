@@ -232,7 +232,7 @@ use ResponseMessageTrait;
           
           return $this->responseMessage('success','Appointment created!',new AppointmentObject($appointment));
         //}
-        ///return $this->responseMessage('rules','Campos requeridos',$validador->data);
+        ///     return $this->responseMessage('rules','Campos requeridos',$validador->data);
 
       } catch (\Exception $e) {
         return $this->responseMessage('errorTransaction', 'Ha ocurrido un error');
