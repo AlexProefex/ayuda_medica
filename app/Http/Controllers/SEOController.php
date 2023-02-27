@@ -16,7 +16,7 @@ class SEOController extends Controller
         return view('index');
     }
 
-    public function medical_consen(){
+    public function medical_consent(){
         SEO::setTitle('Consentimiento Medico');
         SEO::setDescription('Terminos y condiciones de Proefex - ayuda medica');
         SEO::opengraph()->setUrl('https://proyectosproefex.com');
