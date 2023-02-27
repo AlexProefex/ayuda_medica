@@ -83,11 +83,11 @@ class UserAdminsController extends BaseController
         $speciality = $this->getEspecialityUser($user->idUser);
         $res = $this->responseMessageBody('success','User logged-in.', UserAdminsCollection::make($role,$useradmin,$consultory,$speciality,$hashedTooken));
       } catch (\Exception $e) {
-        $res = $this->responseMessageBody('Authorized','Unauthorised.', ['error'=>'Unauthorised','user'=>'credenciales incorrectas'.$e]);
+        $res = $this->responseMessageBody('Authorized','Unauthorised.', ['error'=>'Unauthorised','user'=>'credenciales incorrectas']);
       } catch(\Illuminate\Database\QueryException $e){
-        $res = $this->responseMessageBody('errorTransaction', 'Peticion fallida'.$e);
+        $res = $this->responseMessageBody('errorTransaction', 'Peticion fallida');
       } catch (\Throwable $e) {
-        $res = $this->responseMessageBody('generalError', 'Ups ha ocurrido un error inesperado'.$e);
+        $res = $this->responseMessageBody('generalError', 'Ups ha ocurrido un error inesperado');
       } finally {
         return $this->responseMessage($res->status,$res->title,$res->message);
       }
