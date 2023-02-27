@@ -19,8 +19,8 @@ class MeetController extends Controller
       //$client->setAuthConfig('oauth-credentials.json');
 
       $client->setAuthConfig([
-        'client_id' => '218977633048-6tqaughio2m4e78hi7rkftml416ccgmj.apps.googleusercontent.com',
-        'client_secret' => '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',
+        'client_id' => '751933602051-gbb5s7r0lrbbqe8cpcie5htsvgmpn111.apps.googleusercontent.com',
+        'client_secret' => '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',
       ]);
       
 
@@ -124,8 +124,8 @@ class MeetController extends Controller
       //$client->setAuthConfig('oauth-credentials.json');
 
       $client->setAuthConfig([
-        'client_id' => '218977633048-6tqaughio2m4e78hi7rkftml416ccgmj.apps.googleusercontent.com',
-        'client_secret' => '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',
+        'client_id' => '751933602051-gbb5s7r0lrbbqe8cpcie5htsvgmpn111.apps.googleusercontent.com',
+        'client_secret' => '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',
       ]);
       
 
@@ -252,8 +252,8 @@ class MeetController extends Controller
         $client->addScope(Google_Service_Calendar::CALENDAR);
         $client->setRedirectUri($rurl);
         $client->setAuthConfig([
-          'client_id' => '218977633048-6tqaughio2m4e78hi7rkftml416ccgmj.apps.googleusercontent.com',
-          'client_secret' => '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',
+          'client_id' => '751933602051-gbb5s7r0lrbbqe8cpcie5htsvgmpn111.apps.googleusercontent.com',
+          'client_secret' => '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',
         ]);
         $client->setAuthConfigFile('oauth-credentials.json');
         $guzzleClient = new \GuzzleHttp\Client(array('curl'=>array(CURLOPT_SSL_VERIFYPEER => false)));
