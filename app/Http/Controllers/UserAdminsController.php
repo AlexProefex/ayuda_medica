@@ -333,6 +333,7 @@ class UserAdminsController extends BaseController
             $useradmin->avatar = $avatar['avatar_old'];
           
             $useradmin->state = 'Activo';
+            $useradmin->idRol = 2;
             $useradmin->password = bcrypt($input['password']);
             $useradmin->save();
   
