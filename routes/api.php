@@ -62,6 +62,8 @@ Route::post('/cal',[MeetController::class,'index']);
 
   Route::post('login', [UserAdminsController::class, 'login'])->name('login');
   Route::post('loginPatient', [PatientsController::class, 'login'])->name('login');
+  Route::post('voluntary', [PatientsController::class, 'registroVoluntario']);
+  
 
   Route::get('logout/{hashedTooken}', [UserAdminsController::class,'logout']);
   Route::get('patients-document/{dni}', [PatientsController::class,'getPatientByDni']);

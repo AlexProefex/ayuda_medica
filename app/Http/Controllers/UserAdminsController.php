@@ -313,6 +313,74 @@ class UserAdminsController extends BaseController
     }
 
 
+    public function registroVoluntario(Request $request)
+    {
+      $res = app()->make('stdClass');
+      $avatar=[]; $isNewImage=false;
+      DB::beginTransaction();
+      try {
+        $input = $request->all();  
+        $validador = UserValidation::validateAttributes($input,false,false);
+        if($validador->valid){
+
+          //$avatar = $this->hasFileImage($request,new UserAdmin, yes);
+          $avatar = $this->hasFileImage($request,new UserAdmin);
+
+          $isNewImage = true;
+
+          $useradmin = $this->setDataUserAdminwithValue(new UserAdmin,$input);
+          if($useradmin){
+            $useradmin->avatar = $avatar['avatar_old'];
+          
+            $useradmin->state = 'Activo';
+            $useradmin->password = bcrypt($input['password']);
+            $useradmin->save();
+  
+            if($request->has('specialties')){
+              $specialties = json_decode($input['specialties'],true);
+              foreach ($specialties as $speciality) {
+                $specialityUser = $this->setUserEspecialty($useradmin,$speciality);
+                $specialityUser->save();
+              }
+            }
+            DB::commit();
+            $res = $this->responseMessageBody('success', 'User created!',new UserAdminsObject($useradmin));
+            $res->error = false;
+          }
+          else{
+            $res = $this->responseMessageBody('error', 'Ha ocurrido un error');
+            $res->error = true;
+
+          }
+        } 
+        else{
+          $res = $this->responseMessageBody('rules', 'Campos requeridos',$validador->data);
+          $res->error = true;
+        }
+
+      } catch(\Illuminate\Database\QueryException $e){
+        $res = $this->responseMessageBody('errorTransaction', 'Peticion fallida'.$e);
+        $res->error = true;
+      } catch (\Exception $e) {
+        $res = $this->responseMessageBody('error', 'Ha ocurrido un error'.$e);
+        $res->error = true;
+      } catch (\Throwable $e) {
+        $res = $this->responseMessageBody('generalError', 'Ups ha ocurrido un error inesperado'.$e);
+        $res->error = true;
+      } finally {
+        if($res->error){
+          DB::rollback();
+        }
+        if($res->error && $isNewImage)
+        {
+          $useradmin = new UserAdmin;
+          $this->removeImagePost($request,$useradmin,$avatar);
+        }
+        return $this->responseMessage($res->status,$res->title,$res->message);
+      }
+
+    }
+
     //Busqueda de usuario por id
     public function show($id)
     {
