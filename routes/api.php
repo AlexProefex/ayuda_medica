@@ -64,9 +64,9 @@ Route::post('/cal',[MeetController::class,'index']);
   Route::post('loginPatient', [PatientsController::class, 'login'])->name('login');
 
   Route::get('logout/{hashedTooken}', [UserAdminsController::class,'logout']);
+  Route::get('patients-document/{dni}', [PatientsController::class,'getPatientByDni']);
 
-
-
+  
 
   Route::middleware('auth:sanctum')->group( function () {
   

@@ -12,6 +12,8 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Resources\Patients\PatientsCollection;
 use App\Http\Resources\Patients\PatientsObject;
 use App\Http\Resources\Patients\PatientsResource;
+use App\Http\Resources\Patients\PatientRestrict;
+
 use App\Rules\PatientsValidation;
 use App\Traits\HasFileImage;
 use App\Traits\ResponseMessageTrait;
@@ -179,6 +181,16 @@ class PatientsController extends BaseController
 			return $this->responseMessage('not_found','User not found','');
 		}
 	 	return $this->responseMessage('success','Patient data!',new PatientsObject($patients));
+	}
+
+
+	public function getPatientByDni($dni)
+	{
+		$patients = Patients::where('document_number','=',$dni)->first();
+		if (is_null($patients)) {
+			return $this->responseMessage('not_found','User not found','');
+		}
+	 	return $this->responseMessage('success','Patient data!',new PatientRestrict($patients));
 	}
 
 	//Actualizar los datos de un paciente mediante su identificador
