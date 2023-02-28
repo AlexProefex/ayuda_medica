@@ -379,11 +379,11 @@ class UserAdminsController extends BaseController
     public function getDoctorForAppointments()
     {
       $users = UserAdmin::select(
-        'user_admins.last_name,', 
-        'user_admins.name',
-        'user_admins.idUser',
-        'user_admins.schedule',
-        'user_admins.state')
+        'last_name', 
+        'name',
+        'idUser',
+        'schedule',
+        'state')
         ->where('user_admins.idRol','=',2)
         ->where('user_admins.state','=','Activo')
         ->orderBy('user_admins.idUser','desc')
