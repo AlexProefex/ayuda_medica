@@ -68,7 +68,6 @@ Route::post('/cal',[MeetController::class,'index']);
   Route::post('appointment', [AppointmentController::class,'store']);
   Route::get('specialty', [SpecialtyController::class,'index']);
   Route::get('category', [CategoryController::class,'index']);
-
   Route::get('list-doctors', [UserAdminsController::class,'getDoctorForAppointments']);
 
 

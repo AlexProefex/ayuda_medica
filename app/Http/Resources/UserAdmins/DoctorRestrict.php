@@ -4,7 +4,7 @@ namespace App\Http\Resources\UserAdmins;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DoctorResource extends JsonResource
+class DoctorRestrict extends JsonResource
 {
     /**
      * Transform the resource into an array.

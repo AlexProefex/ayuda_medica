@@ -17,6 +17,8 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Resources\UserAdmins\UserAdminsObject;
 use App\Http\Resources\UserAdmins\UserAdminsCollection;
 use App\Http\Resources\UserAdmins\DoctorResource;
+use App\Http\Resources\UserAdmins\DoctorRestrict;
+
 use App\Http\Resources\UserAdmins\UserAdminsResource;
 use App\Http\Resources\UserAdmins\UserUpdate;
 use App\Http\Resources\UserAdmins\UserAdminsPagination;
@@ -414,7 +416,7 @@ class UserAdminsController extends BaseController
         }
         if(is_null($users))
           return $this->responseMessage('not_found','List de Doctor!',[]);
-        return $this->responseMessage('success','List de Doctor!',DoctorResource::collection($doctors));
+        return $this->responseMessage('success','List de Doctor!',DoctorRestrict::collection($doctors));
     }
 
     //Actualizar usuario y sus propiedades consultorio, especialdad
