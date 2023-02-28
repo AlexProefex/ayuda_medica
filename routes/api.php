@@ -65,21 +65,23 @@ Route::post('/cal',[MeetController::class,'index']);
 
   Route::get('logout/{hashedTooken}', [UserAdminsController::class,'logout']);
   Route::get('patients-document/{dni}', [PatientsController::class,'getPatientByDni']);
+  Route::post('appointment', [AppointmentController::class,'store']);
+  Route::get('specialty', [SpecialtyController::class,'index']);
+  Route::get('category', [CategoryController::class,'index']);
+
+  Route::get('list-doctors', [UserAdminsController::class,'getDoctorForAppointments']);
+
 
   
+
 
   Route::middleware('auth:sanctum')->group( function () {
   
-
-
-
-
         
     Route::controller(AppointmentController::class)->group(function() {
       Route::get('appointment', 'index');
       Route::get('appointment/{id}', 'show');
       Route::put('appointment/{id}', 'update');
-      Route::post('appointment', 'store');
       Route::get('hello/{id}', 'show');
       Route::get('appointment-doctor/{id}', 'appointmentByDoctor');
       Route::put('appointment-status/{id}', 'appointmentStatus');
@@ -137,7 +139,6 @@ Route::post('/cal',[MeetController::class,'index']);
     Route::controller(CategoryController::class)->group(function() {
       Route::post('category', 'store');
       Route::put('category/{id}', 'update');
-      Route::get('category', 'index');
       Route::get('category/{id}', 'show');
     });
   
@@ -162,7 +163,7 @@ Route::post('/cal',[MeetController::class,'index']);
 
 
     Route::controller(SpecialtyController::class)->group(function() {
-      Route::get('specialty', 'index');
+
       Route::get('specialty/{id}', 'show');
       /*Route::get('convention/{id}', 'show');
       Route::get('convention-active','getActiveConvention');*/

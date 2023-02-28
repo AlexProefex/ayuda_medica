@@ -373,6 +373,50 @@ class UserAdminsController extends BaseController
         return $this->responseMessage('success','List de Doctor!',DoctorResource::collection($doctors));
     }
 
+
+    public function getDoctorForAppointments()
+    {
+      $users = UserAdmin::select(
+        'user_admins.last_name,', 
+        'user_admins.name',
+        'user_admins.idUser',
+        'user_admins.schedule',
+        'user_admins.state')
+        ->where('user_admins.idRol','=',2)
+        ->where('user_admins.state','=','Activo')
+        ->orderBy('user_admins.idUser','desc')
+        ->get();
+        $doctors = array();
+      
+        foreach ($users as $user) {
+          $specialidad = UserAdmin::select(
+            'specialties.idSpecialty',
+            'specialties.name as specialty')
+            ->join('speciality_users','speciality_users.idUser','=','user_admins.idUser')
+            ->join('specialties','specialties.idSpecialty','=','speciality_users.idSpecialty')
+            ->where('user_admins.idUser','=',$user->idUser)
+            ->where('speciality_users.status','=','Activo')
+            ->orderBy('user_admins.idUser','asc')
+            ->get();
+
+            if($specialidad ==[] || $specialidad == "[]")
+            $specialidad = NULL;
+
+            $doctors[] = array(
+              'idUser' => $user->idUser,
+              'name' => $user->name,
+              'last_name' => $user->last_name,
+              'schedule' => $user->schedule,
+              "state" =>  $user->state,
+              "specialties" =>  $specialidad,
+              
+            ); 
+        }
+        if(is_null($users))
+          return $this->responseMessage('not_found','List de Doctor!',[]);
+        return $this->responseMessage('success','List de Doctor!',DoctorResource::collection($doctors));
+    }
+
     //Actualizar usuario y sus propiedades consultorio, especialdad
     public function update(Request $request, $id)
     {
