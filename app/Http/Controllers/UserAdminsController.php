@@ -410,7 +410,7 @@ class UserAdminsController extends BaseController
               'last_name' => $user->last_name,
               'schedule' => $user->schedule,
               "state" =>  $user->state,
-              "specialties" =>  $specialidad,
+              "specialty" =>  $specialidad,
               
             ); 
         }
