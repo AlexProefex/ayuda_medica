@@ -31,7 +31,8 @@ use ResponseMessageTrait;
           'patients.last_name',
           'appointments.idDoctor',
           'appointments.status',
-          'appointments.idSpecialty')
+          'appointments.idSpecialty',
+          'appointments.observation')
         ->join('patients','patients.idPatient','=','appointments.idPatient')
         ->where('appointments.status','=','reservado')
         ->orderBy('appointments.updated_at', 'desc')
@@ -58,7 +59,8 @@ use ResponseMessageTrait;
           'patients.last_name',
           'appointments.idDoctor',
           'appointments.status',
-          'appointments.idSpecialty')
+          'appointments.idSpecialty',
+          'appointments.observation')
         ->join('patients','patients.idPatient','=','appointments.idPatient')
         ->where('appointments.status','=','reservado')
         ->where('appointments.idDoctor','=',$id)

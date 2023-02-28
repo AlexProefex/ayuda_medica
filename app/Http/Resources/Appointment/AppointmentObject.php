@@ -26,6 +26,7 @@ class AppointmentObject extends JsonResource
                 'idSpecialty' => $this->whenNotNull($this->idSpecialty),
                 //'reason_appointment' => $this->whenNotNull($this->reason_appointment),
                 'status' => $this->whenNotNull($this->status),
+                'observation' => $this->whenNotNull($this->observation),
              
            
               ]

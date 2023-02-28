@@ -28,6 +28,7 @@ class AppointmentResource extends JsonResource
                 'location' => $this->whenNotNull($this->location),
                 'status' => $this->whenNotNull($this->status),
                 'category' =>  $this->whenNotNull(Category::find($this->idCategory,['idCategory','name'])),
+                'observation' => $this->whenNotNull($this->observation)
 
 
             ];
