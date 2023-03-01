@@ -494,11 +494,11 @@ class UserAdminsController extends BaseController
     //Actualizar usuario y sus propiedades consultorio, especialdad
     public function update(Request $request, $id)
     {
-      $res = app()->make('stdClass'); $avatar = []; $isNewImage = false;
+      /*$res = app()->make('stdClass'); $avatar = []; $isNewImage = false;
       $res = $this->controlappointment($id,$request);
       if($res['specialty'] != [] || $res['consultory'] != []){
         return $this->responseMessage('rules','campos con citas reservadas', UserUpdate::make($res['consultory'],$res['consultory'],$res['specialty']));
-      }
+      }*/
 
       DB::beginTransaction();
       try {
@@ -641,9 +641,9 @@ class UserAdminsController extends BaseController
       try {
         $res = $this->appointmentConsultoryOne($request,$id);
         if($res['consultory'] != 0){
-          return $this->responseMessage('rules','campos con citas reservadas',$res['consultory']);
+          return $this->responseMessage('rules','campos con citas reservadas',true);
         }
-        return $this->responseMessage('rules','campos con citas reservadas',$res['consultory']);
+        return $this->responseMessage('rules','campos con citas reservadas',false);
       }catch (\Throwable $e) {
         return $this->responseMessage('errorTransaction', 'Ha ocurrido un error');
       }
