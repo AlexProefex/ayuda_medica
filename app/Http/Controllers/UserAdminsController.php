@@ -452,7 +452,8 @@ class UserAdminsController extends BaseController
         'name',
         'idUser',
         'schedule',
-        'state')
+        'state',
+        'timezone')
         ->where('user_admins.idRol','=',2)
         ->where('user_admins.state','=','Activo')
         ->orderBy('user_admins.idUser','desc')
@@ -479,7 +480,9 @@ class UserAdminsController extends BaseController
               'last_name' => $user->last_name,
               'schedule' => $user->schedule,
               "state" =>  $user->state,
+              "timezone" =>  $user->timezone,
               "specialty" =>  $specialidad,
+
               
             ); 
         }

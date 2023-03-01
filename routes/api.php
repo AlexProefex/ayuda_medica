@@ -61,7 +61,7 @@ Route::post('/cal',[MeetController::class,'index']);
 //Route::middleware('tenant')->group(function() {
 
   Route::post('login', [UserAdminsController::class, 'login'])->name('login');
-  Route::post('loginPatient', [PatientsController::class, 'login'])->name('login');
+ // Route::post('loginPatient', [PatientsController::class, 'login'])->name('login');
   Route::post('voluntary', [UserAdminsController::class, 'registroVoluntario']);
   
 

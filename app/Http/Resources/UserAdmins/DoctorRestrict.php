@@ -20,6 +20,7 @@ class DoctorRestrict extends JsonResource
             'last_name' => $this->whenNotNull($this['last_name']),
             'schedule' => $this->whenNotNull($this['schedule']),
             'state' => $this->whenNotNull($this['state']),
+            'timezone' => $this->whenNotNull($this['timezone']),
             'specialty' => $this->whenNotNull($this['specialty'])
      
           ];
