@@ -89,7 +89,7 @@ trait ControlUserUpdate {
           ->where('appointments.status','=','reservado')
           ->where('appointments.idDoctor','=', $idUser)
           ->where('appointments.date','>=', Carbon::now()->toDateString())
-          ->where('appointments.idConsultory','=',$input['idConsultory'])
+          //->where('appointments.idConsultory','=',$input['idConsultory'])
           ->first();
   
           if($appointment->pendientes>0){

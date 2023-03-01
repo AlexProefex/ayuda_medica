@@ -641,9 +641,9 @@ class UserAdminsController extends BaseController
       try {
         $res = $this->appointmentConsultoryOne($request,$id);
         if($res['consultory'] != 0){
-          return $this->responseMessage('rules','campos con citas reservadas',true);
+          return $this->responseMessage('rules','campos con citas reservadas',$res['consultory']);
         }
-        return $this->responseMessage('rules','campos con citas reservadas',false);
+        return $this->responseMessage('rules','campos con citas reservadas',$res['consultory']);
       }catch (\Throwable $e) {
         return $this->responseMessage('errorTransaction', 'Ha ocurrido un error');
       }
