@@ -52,8 +52,7 @@ class AppointmentValidation implements Rule
         'idPatient' => 'required|numeric',
         'idSpecialty' => 'required|numeric',
         'date' =>  ['date_format:Y-m-d','after:yesterday'],
-        'time' => 'required',
-        'observation' => 'required'
+        'time' => 'required'
       ];
 
       $messages=[
@@ -67,8 +66,7 @@ class AppointmentValidation implements Rule
         'idPatient.numeric' => 'El codigo del paciente debe ser numerico',
         'time.required' => 'La hora es requerido',
         'date.date_format' => 'La fecha debe tener el formato YYYY-MM-DD',
-        'date.after' => 'La fecha no puede ser anterior a la de hoy',
-        'observation.required' => 'Los comentarios son equeridos',
+        'date.after' => 'La fecha no puede ser anterior a la de hoy'
       ];
 
       if(!$validate){
