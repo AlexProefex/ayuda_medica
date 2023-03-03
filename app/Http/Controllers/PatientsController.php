@@ -226,7 +226,7 @@ class PatientsController extends BaseController
 		
 	
 
-				$avatar = $this->hasFileImage($request,new Patients, "PUT");
+				$avatar = $this->hasFileImage($request,$patients, "PUT");
 
 				$patients->avatar = $avatar['avatar_new'];
 			
