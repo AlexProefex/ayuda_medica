@@ -95,7 +95,7 @@ Route::post('/cal',[MeetController::class,'index']);
     Route::controller(UserAdminsController::class)->group(function() {
       Route::get('user', 'index');
       Route::get('user/{id}', 'show');
-      Route::get('find-user/{text?}','findUser');
+      Route::get('find-user/{dni}','findUserDni');
       Route::get('token/{hashedTooken}', 'getUserbyToken');
       Route::get('doctor','getDoctor');
       Route::get('get-image-user/{name}','getImageUsers');

@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Patients;
+namespace App\Http\Resources\UserAdmins;
 
-use App\Models\Patients;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-class PatientRestrict extends JsonResource
+
+class UserAdminsRestrict extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,22 +14,16 @@ class PatientRestrict extends JsonResource
      */
     public function toArray($request)
     {
-
-      return [
-            'id' => $this->whenNotNull($this->idPatient),
+        return [
+            'id' => $this->whenNotNull($this->idUser),
             'attributes'=>[   
-                'idPatient'=> $this->whenNotNull($this->idPatient),
+                'idUser'=> $this->whenNotNull($this->idUser),
                 'name' =>  $this->whenNotNull($this->name),      
                 'last_name' =>  $this->whenNotNull($this->last_name),
-                'document_type' => $this->whenNotNull($this->document_type),
                 'document_number' => $this->whenNotNull($this->document_number),
                 'phone_number' => $this->whenNotNull($this->phone_number),
                 'email' => $this->whenNotNull($this->email),
-            ]
-        ];
-               
+              ]
+          ];
     }
 }
-
-
-

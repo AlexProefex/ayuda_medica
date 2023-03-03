@@ -24,6 +24,8 @@ use App\Http\Resources\UserAdmins\UserUpdate;
 use App\Http\Resources\UserAdmins\UserAdminsPagination;
 use App\Http\Resources\UserAdmins\UserAdminsResourceSpecialty;
 
+use App\Http\Resources\UserAdmins\UserAdminsRestrict;
+
 
 use App\Rules\UserValidation;
 use App\Traits\ControlUserUpdate;
@@ -213,7 +215,7 @@ class UserAdminsController extends BaseController
 
           if(is_null($useradmin))
             return $this->responseMessage('not_found','List de Usuarios!',[]);
-          return $this->responseMessage('success','List de Admins!',UserAdminsResource::collection($useradmin)->response()->getData(true));
+          return $this->responseMessage('success','List de Admins!',UserAdminsResource::collection($useradmin)->response());
       }
       else{
         $useradmin = UserAdmin::select(
@@ -242,6 +244,15 @@ class UserAdminsController extends BaseController
     
     }
 
+
+    public function findUserDni($dni="0")
+    { 
+      $userAdmin = UserAdmin::where('document_number','=',$dni)->first();
+      if (is_null($userAdmin)) {
+        return $this->responseMessage('not_found','User not found','');
+      }
+       return $this->responseMessage('success','User data!',new UserAdminsRestrict($userAdmin));
+    }
 
     //Registro de usuarios y sus propiedades consultorio, especialdad
     public function store(Request $request)

@@ -174,7 +174,7 @@ class PatientsController extends BaseController
 
 
 	//Busqueda de pacientes mediante su documento de identidad
-	public function findPatient($dni)
+	public function findPatient($dni="0")
 	{
 		$patients = Patients::where('document_number','=',$dni)->first();
 		if (is_null($patients)) {

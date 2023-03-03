@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('date');
             $table->string('time');
             $table->string('status');
-            $table->string('observation');
+            $table->string('observation')->default('--');
             $table->timestamps();
         });
     }
