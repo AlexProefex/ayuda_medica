@@ -262,7 +262,7 @@ class UserAdminsController extends BaseController
       DB::beginTransaction();
       try {
         $input = $request->all();  
-        $validador = UserValidation::validateAttributes($input,false,false);
+        $validador = UserValidation::validateAttributes($input,false,false, password : true);
         if($validador->valid){
 
           //$avatar = $this->hasFileImage($request,new UserAdmin, yes);

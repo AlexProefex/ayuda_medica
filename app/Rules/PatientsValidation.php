@@ -49,7 +49,8 @@ class PatientsValidation implements Rule
         'birthdate' => ['date_format:Y-m-d'],'before:today',
         'document_type' => 'required',
         'phone_number' => 'required|numeric',
-        //'password' => 'required',
+        'email' => 'email|required'
+    
 
       ];
 
@@ -59,51 +60,30 @@ class PatientsValidation implements Rule
         'document_type.required'=>'El tipo de documento es requerido',
         'birthdate.date_format'=>'La fecha debe tener el formato YYYY-MM-DD',
         'document_number.numeric'=>'El numero de documento debe ser numerico',
+        'document_number.required'=>'El numero de documento es requerido',
         'birthdate.before' => 'La fecha de nacimiento debe ser anterior a la fecha actual',
         'phone_number.required' => 'El numero de telefono es requerido',
         'phone_number.numeric' => 'El numero de telefono debe ser numerico',
-        //'password.required' => 'El password es requerido',
+        'email.email' => 'El correo electronico debe tener formato example@domain.com',
+        'email.email' => 'El correo electronico es requerido'
+      
       ];
 
 
-      if(array_key_exists('email',$data)){
-        $rules =  array_merge($rules, array("email" => "email|required"));
-        $messages =  array_merge($messages, array("email.email" => "El correo electronico debe tener formato example@domain.com"));
-        $messages =  array_merge($messages, array("email.email" => "El correo electronico es requerido"));
-      }
-
-      /*if(array_key_exists('phone_number',$data)){
-        $rules =  array_merge($rules, array("phone_number" => "numeric"));
-        $messages =  array_merge($messages, array("phone_number.numeric" => "El telefono solo acepta campos numericos"));
-      }*/
-
-      //if(!array_key_exists('email',$data) && !array_key_exists('phone_number',$data)){
-      //  $rules =  array_merge($rules, array("email" => "required"));
-      //  $messages =  array_merge($messages, array("email.required" => "Se requiere ingresar al menos un medio de contacto correo electronico o telefono"));
-      //}
    
       if($document_number)
       {
-        $rules = array_merge($rules, array("document_number" => "numeric"));
+        $rules = array_merge($rules, array('document_number' => 'required|numeric'));
       }
       else{
-        $rules = array_merge($rules, array("document_number" => "required|numeric|unique:App\Models\Patients,document_number"));
+        $rules = array_merge($rules, array('document_number' => 'required|numeric|unique:App\Models\Patients,document_number'));
 
       }
 
       if($document_number==false){
-        $messages = array_merge($messages, array("document_number.unique" => "El numero de documento ya existe"));
+        $messages = array_merge($messages, array('document_number.unique' => 'El numero de documento ya existe'));
       }
 
-      /*if(intval($data['edad'])<18){
-        $rules = array_merge($rules, array("tutorName" => "required"));
-        $rules = array_merge($rules, array("tutorLastName" => "required"));
-        $rules = array_merge($rules, array("relationship" => "required"));
-
-        $messages = array_merge($messages, array("tutorName.required" => "El nombre de tutor es requerido"));
-        $messages = array_merge($messages, array("tutorLastName.required" => "El apellido del tutor es requerido"));
-        $messages = array_merge($messages, array("relationship.required" => "El parentesco es requerido"));
-      }*/
 
       $validator = Validator::make( $data, $rules, $messages );
 

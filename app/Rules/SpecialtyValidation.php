@@ -45,7 +45,7 @@ class SpecialtyValidation implements Rule
   
         $rules = [
           'name' => 'required',
-          'idCategory' => 'required',
+          'idCategory' => 'required|numeric',
           'duration' => 'required',
           'description' => 'required'
         ];
@@ -53,6 +53,7 @@ class SpecialtyValidation implements Rule
         $messages=[
           'name.required' => 'El nombre del servicio es requerido',
           'idCategory.required' => 'El nombre de la categoria es requerido',
+          'idCategory.numeric' => 'El identificador de la categoria es numerico',
           'duration.required' => 'El tiempo de duracion es requerido',
           'description.required' => 'La descripcion es requerido',
         ];

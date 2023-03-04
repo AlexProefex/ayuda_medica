@@ -212,18 +212,14 @@ class PatientsController extends BaseController
       $patients = Patients::find($id);
 
       $document_number = $input['document_number'] == $patients->document_number? true :false;
-			//$password = is_null($input['password']) ? $patients->password: $input['password'];
-			//$input['password'] = is_null($input['password']) ? "-": $input['password'];
+
 			$email = true;
       $validador = PatientsValidation::validateAttributes($input,$email,$document_number);
 
       if($validador->valid){
 
 
-				//$avatar = $this->hasFileImage($request,$patients,"PUT");
-
-				$isNewImage=true;
-		
+				$isNewImage=true;		
 	
 
 				$avatar = $this->hasFileImage($request,$patients, "PUT");
