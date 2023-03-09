@@ -72,7 +72,7 @@ class PatientsController extends BaseController
 	{
 		$res = app()->make('stdClass');
 		$res->error = true;
-		//$avatar=[]; $isNewImage=false;
+		$avatar=[]; $isNewImage=false;
 		DB::beginTransaction();
 		try {
 			$input = $request->all();
@@ -199,10 +199,10 @@ class PatientsController extends BaseController
 
 		//dd($request->all());
 		//error
-		$avatar=[];
-		$isNewImage=false;
+
 		$res = app()->make('stdClass');
 		$res->error = true;
+		$avatar=[]; $isNewImage=false;
 
 		DB::beginTransaction();
 		try {

@@ -510,7 +510,7 @@ class UserAdminsController extends BaseController
       if($res['specialty'] != [] || $res['consultory'] != []){
         return $this->responseMessage('rules','campos con citas reservadas', UserUpdate::make($res['consultory'],$res['consultory'],$res['specialty']));
       }*/
-
+      $avatar=[]; $isNewImage=false;
       DB::beginTransaction();
       try {
         $input = $request->all();

@@ -65,7 +65,7 @@ class PatientsValidation implements Rule
         'phone_number.required' => 'El numero de telefono es requerido',
         'phone_number.numeric' => 'El numero de telefono debe ser numerico',
         'email.email' => 'El correo electronico debe tener formato example@domain.com',
-        'email.email' => 'El correo electronico es requerido'
+        'email.required' => 'El correo electronico es requerido'
       
       ];
 
