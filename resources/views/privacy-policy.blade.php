@@ -10,7 +10,7 @@
       </h1>
       <p>
         <font style="vertical-align: inherit;">
-          <font style="vertical-align: inherit;">Última actualización: febrero de 2022</font>
+          <font style="vertical-align: inherit;">Última actualización: Marzo de 2023</font>
         </font>
       </p>
       <h4>
@@ -319,7 +319,7 @@
       <p>Podemos analizar sus Datos personales para mantener la seguridad de los Servicios y las instalaciones, para hacer cumplir nuestros
         Términos y condiciones; para proteger, investigar y disuadir a personas fraudulentas, no autorizadas o ilegales
         actividad; y para evitar y detectar ataques a nuestro sitio web o aplicaciones o el mal uso de nuestros Servicios.</p>
-      <h4>5. Licitud del tratamiento</h4>
+      <h4>5. Legalidad del procesamiento</h4>
       <p>Cuando recopilamos y utilizamos sus Datos personales, solo lo haremos cuando se cumpla al menos uno de los siguientes
         aplica:</p>
 
@@ -378,7 +378,26 @@
         <p>Cuando solicitamos a terceros que organicen o presenten ciertos eventos como seminarios web o capacitación, podemos reenviar
           sus Datos personales al tercero respectivo que puede usar estos datos para brindar acceso al evento o
           puede ponerse en contacto con usted para fines de marketing relacionados.</p>
-    </div>
+
+          <h4>8. Duracion del almacenamiento de sus Datos</h4>
+          <p>Sus Datos personales se eliminarán cuando lo solicite o tan pronto como ya no sean necesarios para lograr el propósito para el cual se recopilaron, es decir, para proporcionar los Servicios solicitados. Si se aplican regulaciones legales (por ejemplo, por leyes fiscales, comerciales o contractuales) que requieren un almacenamiento más prolongado de sus Datos personales, o si necesitamos sus Datos personales para hacer valer reclamos legales o defendernos de reclamos legales, almacenaremos sus Datos personales hasta el vencimiento del período de almacenamiento correspondiente o hasta la liquidación de las reclamaciones.&nbsp;</p>
+          <p>Cualquier cuenta de usuario y sus datos relacionados en las aplicaciones en las que actuamos como Controlador se eliminarán a su solicitud.</p>
+
+
+
+
+          <h4>9. Sus derechos</h4>
+
+          <p>Si lo solicita, le informaremos si hemos almacenado datos sobre usted y cuáles. Siempre que se cumplan los requisitos legales, tiene derecho a que se corrijan, bloqueen o eliminen estos datos. También tiene derecho a recibir los Datos personales que nos ha proporcionado, en un formato estructurado, de uso común y legible por máquina, y tiene derecho a transmitir esos datos a otro Controlador en las condiciones y de conformidad con el Reglamento.</p>
+          <p>En la medida en que procesemos sus datos sobre la base del equilibrio de intereses, tiene derecho a oponerse si se cumplen los requisitos legales.</p>
+          <p>Cuando dependamos del consentimiento para procesar sus Datos personales, puede retirar su consentimiento en cualquier momento para el futuro. Sin embargo, esto no afectará la legalidad de cualquier procesamiento realizado antes de que retire su consentimiento</p>
+          <p>Puede ejercer sus derechos poniéndose en contacto con nosotros por escrito, con una prueba de su identidad, en info@ayudamedica.com </p>
+        </div>
+
+
+
+
+
   </section>
     </div>
   </div>
