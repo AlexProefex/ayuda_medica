@@ -71,9 +71,7 @@ Route::post('/cal',[MeetController::class,'index']);
   Route::get('specialty', [SpecialtyController::class,'index']);
   Route::get('category', [CategoryController::class,'index']);
   Route::get('list-doctors', [UserAdminsController::class,'getDoctorForAppointments']);
-
-
-  
+  Route::post('patients', [PatientsController::class,'store']);
 
 
   Route::middleware('auth:sanctum')->group( function () {
@@ -116,7 +114,7 @@ Route::post('/cal',[MeetController::class,'index']);
       Route::get('find-patient/{dni}','findPatient');
       Route::get('searchPatient/{text?}','findPatientPaginate');
       Route::put('patients/{id}', 'update');
-      Route::post('patients', 'store');
+
     });
   
   
