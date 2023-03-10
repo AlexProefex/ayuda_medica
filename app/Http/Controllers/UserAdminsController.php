@@ -532,7 +532,7 @@ class UserAdminsController extends BaseController
    
             $useradmin->avatar = $avatar['avatar_new'];
             $useradmin->state = $input['state'];
-            $useradmin->password = $input['password'] !="" ? $input['password'] : $useradmin->password;
+            $useradmin->password = $input['password'] !="" ? bcrypt($input['password']) : $useradmin->password;
             $useradmin->save();
             /*
             if($request->has('consultories')){
