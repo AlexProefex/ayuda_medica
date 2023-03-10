@@ -8,7 +8,7 @@ class SEOController extends Controller
 {
     public function index(){
         SEO::setTitle('Proyectos Proefex');
-        SEO::setDescription('website listing proefex projects where you will find the details of each of them, both new and old');
+        SEO::setDescription('Somos un equipo creativo y multidisciplinario enfocado en lograr objetivos y poner en valor ideas nuevas, aprovechando herramientas de innovación tecnológica con soluciones que se ajustan a las necesidades y demandas de nuestros clientes, aportando valor a cada negocio.');
         SEO::opengraph()->setUrl('https://proyectosproefex.com');
         SEO::setCanonical('https://proyectosproefex.com');
         SEO::opengraph()->addProperty('type', 'articles');
@@ -18,7 +18,7 @@ class SEOController extends Controller
 
     public function medical_consent(){
         SEO::setTitle('Consentimiento Medico');
-        SEO::setDescription('Terminos y condiciones de Proefex - ayuda medica');
+        SEO::setDescription('Terminos y condiciones de Proefex - Ayuda Medica Proefex');
         SEO::opengraph()->setUrl('https://proyectosproefex.com');
         SEO::setCanonical('https://proyectosproefex.com');
         SEO::opengraph()->addProperty('type', 'articles');
