@@ -3,7 +3,7 @@ hola ese es una vista
 
 
 
-<form action="{{url('user')}}" method="post" enctype="multipart/form-data">
+<form action="{{url('authorize/token')}}" method="post" enctype="multipart/form-data">
   @csrf
 
 
@@ -36,7 +36,7 @@ hola ese es una vista
   <label>avatar</label>
 
   
-  <input type="submit">
+  <input type="submit" value ="Enviando datos">
 </form>
 
 
