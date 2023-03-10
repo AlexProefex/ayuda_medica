@@ -483,7 +483,7 @@ class UserAdminsController extends BaseController
             ->get();
 
             if($specialidad ==[] || $specialidad == "[]")
-            $specialidad = NULL;
+            $specialidad = [];
 
             $doctors[] = array(
               'idUser' => $user->idUser,
