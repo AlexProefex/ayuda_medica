@@ -9,7 +9,7 @@
 <body>
 hello
 
-{{$data}}
+{{dd($data)}}
 
 </body>
 </html>
