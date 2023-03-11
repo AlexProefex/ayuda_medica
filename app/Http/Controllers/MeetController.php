@@ -25,8 +25,13 @@ class MeetController extends Controller
       $client->setHttpClient($guzzleClient);
 
       $tokenGoogle = TokenGoogle::find(1);
-   
+
+      $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($tokenGoogle->token);
+
+
       $client->setAccessToken($tokenGoogle->token);
+
+
       $service = new Google_Service_Calendar($client);
       $calendarId = 'primary';
       $optParam = array(
