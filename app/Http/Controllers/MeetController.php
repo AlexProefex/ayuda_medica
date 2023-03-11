@@ -323,7 +323,7 @@ class MeetController extends Controller
           $tokenGoogle->save();
 
 
-          return redirect("https://medical.proyectosproefex.com/showCalendar?user=".$tokenGoogle->token);
+          return redirect("https://medical.proyectosproefex.com/showCalendar/".$tokenGoogle->token);
           
 
    //       dd($data);
