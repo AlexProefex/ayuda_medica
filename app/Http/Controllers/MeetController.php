@@ -11,6 +11,36 @@ use App\Models\Appointment;
 
 class MeetController extends Controller
 {
+    
+
+    public function showCalendar(){
+      $client = new Google_Client();
+      $client->setAuthConfig([
+        'client_id' => '751933602051-gbb5s7r0lrbbqe8cpcie5htsvgmpn111.apps.googleusercontent.com',
+        'client_secret' => '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',
+      ]);
+      
+      $client->addScope(Google_Service_Calendar::CALENDAR);
+      $guzzleClient = new \GuzzleHttp\Client(array('curl'=>array(CURLOPT_SSL_VERIFYPEER => false)));
+      $client->setHttpClient($guzzleClient);
+
+      $tokenGoogle = TokenGoogle::find(1);
+   
+      $client->setAccessToken($tokenGoogle->token);
+      $service = new Google_Service_Calendar($client);
+      $calendarId = 'primary';
+      $optParam = array(
+        'orderBy' => 'startTime',
+        'singleEvents' => true,
+        'timeMin' => date('c')
+      );
+
+      $result = $service->events->listEvents($calendarId,$optParam);
+    
+      return view('webview', ['data' =>$result->getItems()]);
+  
+    }
+
     public function index()
     {
  
@@ -281,7 +311,7 @@ class MeetController extends Controller
           $tokenGoogle->save();
 
 
-          return redirect("https://www.google.com/?token=".$tokenGoogle);
+          return redirect("https://www.google.com/?token=".$tokenGoogle->token);
           
 
    //       dd($data);
