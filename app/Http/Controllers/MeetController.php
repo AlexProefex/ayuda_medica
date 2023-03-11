@@ -262,8 +262,6 @@ class MeetController extends Controller
         if(!isset($_GET['code'])){
           $auth_url = $client->createAuthUrl();
           $filtered_url = filter_var($auth_url, FILTER_SANITIZE_URL);
-          
-  
           return redirect($filtered_url);
         }
         else{
@@ -276,9 +274,15 @@ class MeetController extends Controller
             $tokenGoogle->idUser = 1;
             $tokenGoogle->save();
           }
+
+
      
           $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
           $tokenGoogle->save();
+
+
+          return redirect("https://www.google.com/?token=".$tokenGoogle);
+          
 
    //       dd($data);
   
