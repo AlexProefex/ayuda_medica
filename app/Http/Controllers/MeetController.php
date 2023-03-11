@@ -8,12 +8,18 @@ use Google_Service_Calendar;
 use Google_Service_Calendar_Event;
 use App\Models\TokenGoogle;
 use App\Models\Appointment;
+use Illuminate\Support\Facades\Crypt;
 
 class MeetController extends Controller
 {
     
 
-    public function showCalendar(){
+    public function showCalendar(Request $request){
+
+
+      $query = $request->query('user', '');
+      $query = Crypt::decryptString($query);
+
       $client = new Google_Client();
       $client->setAuthConfig([
         'client_id' => '751933602051-gbb5s7r0lrbbqe8cpcie5htsvgmpn111.apps.googleusercontent.com',
@@ -24,12 +30,12 @@ class MeetController extends Controller
       $guzzleClient = new \GuzzleHttp\Client(array('curl'=>array(CURLOPT_SSL_VERIFYPEER => false)));
       $client->setHttpClient($guzzleClient);
 
-      $tokenGoogle = TokenGoogle::find(1);
+      //$tokenGoogle = TokenGoogle::find(1);
 
       //$tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($tokenGoogle->token);
 
 
-      $client->setAccessToken($tokenGoogle->token);
+      $client->setAccessToken($query);
 
 
       $service = new Google_Service_Calendar($client);
@@ -319,7 +325,7 @@ class MeetController extends Controller
           $tokenGoogle->save();
 
 
-         // return redirect("https://www.google.com/?token=".$tokenGoogle->token);
+          return redirect("https://medical.proyectosproefex.com/showCalendar?user".Crypt::encryptString($tokenGoogle->token));
           
 
    //       dd($data);
