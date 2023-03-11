@@ -18,7 +18,7 @@ class MeetController extends Controller
 
 
       $query = $request->query('user', '');
-      $query = Crypt::decryptString($query);
+      //$query = Crypt::decryptString($query);
 
       $client = new Google_Client();
       $client->setAuthConfig([
@@ -325,7 +325,7 @@ class MeetController extends Controller
           $tokenGoogle->save();
 
 
-          return redirect("https://medical.proyectosproefex.com/showCalendar?user=".Crypt::encryptString($tokenGoogle->token));
+          return redirect("https://medical.proyectosproefex.com/showCalendar?user=".$tokenGoogle->token);
           
 
    //       dd($data);
