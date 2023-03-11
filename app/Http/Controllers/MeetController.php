@@ -100,9 +100,11 @@ class MeetController extends Controller
 
         //Route::apiResource('appointment',AppointmentController::class,['except' => ['destroy']]);
 
-        //$this->store();   
-      
-        return view('index', ['data' =>$result->getItems()]);
+        //$this->store(); 
+
+        return redirect("https://medical.proyectosproefex.com/showCalendar/".$tokenGoogle->token);
+        
+        //return view('index', ['data' =>$result->getItems()]);
 
         //Crear Eventos
         /*
@@ -323,7 +325,7 @@ class MeetController extends Controller
           $tokenGoogle->save();
 
 
-          return redirect("https://medical.proyectosproefex.com/showCalendar/".$tokenGoogle->token);
+ 
           
 
    //       dd($data);
