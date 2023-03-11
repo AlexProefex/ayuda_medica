@@ -325,7 +325,7 @@ class MeetController extends Controller
           $tokenGoogle->save();
 
 
-          return redirect("https://medical.proyectosproefex.com/showCalendar?user".Crypt::encryptString($tokenGoogle->token));
+          return redirect("https://medical.proyectosproefex.com/showCalendar?user=".Crypt::encryptString($tokenGoogle->token));
           
 
    //       dd($data);
