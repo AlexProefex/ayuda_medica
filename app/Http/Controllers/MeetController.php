@@ -14,11 +14,9 @@ class MeetController extends Controller
 {
     
 
-    public function showCalendar(Request $request){
-
-
-      $query = $request->query('user', '');
-      //$query = Crypt::decryptString($query);
+    public function showCalendar($token){
+  
+            //$query = Crypt::decryptString($query);
 
       $client = new Google_Client();
       $client->setAuthConfig([
@@ -35,7 +33,7 @@ class MeetController extends Controller
       //$tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($tokenGoogle->token);
 
 
-      $client->setAccessToken($query);
+      $client->setAccessToken($token);
 
 
       $service = new Google_Service_Calendar($client);
