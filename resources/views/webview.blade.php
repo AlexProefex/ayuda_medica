@@ -9,5 +9,7 @@
 <body>
 hello
 
+{{$data}}
+
 </body>
 </html>
