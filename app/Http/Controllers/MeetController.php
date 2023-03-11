@@ -14,7 +14,7 @@ class MeetController extends Controller
     
 
     public function showCalendar(){
-      /*$client = new Google_Client();
+      $client = new Google_Client();
       $client->setAuthConfig([
         'client_id' => '751933602051-gbb5s7r0lrbbqe8cpcie5htsvgmpn111.apps.googleusercontent.com',
         'client_secret' => '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',
@@ -35,16 +35,16 @@ class MeetController extends Controller
         'timeMin' => date('c')
       );
 
-      */
+      
       $result =[]; 
-      //$service->events->listEvents($calendarId,$optParam);
+      $result = $service->events->listEvents($calendarId,$optParam);
 
 
       
     
-      //return view('webview', ['data' =>$result->getItems()]);
+      return view('webview', ['data' =>$result->getItems()]);
 
-      return view('webview', ['data' =>$result]);
+      //return view('webview', ['data' =>$result]);
   
     }
 
