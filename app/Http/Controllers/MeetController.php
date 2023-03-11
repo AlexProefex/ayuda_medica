@@ -18,6 +18,8 @@ class MeetController extends Controller
   
             //$query = Crypt::decryptString($query);
 
+      $token =  Crypt::decryptString($token);      
+
       $client = new Google_Client();
       $client->setAuthConfig([
         'client_id' => '751933602051-gbb5s7r0lrbbqe8cpcie5htsvgmpn111.apps.googleusercontent.com',
@@ -102,8 +104,8 @@ class MeetController extends Controller
 
         //$this->store(); 
 
-        return redirect("https://medical.proyectosproefex.com/showCalendar/".$tokenGoogle->token);
-        
+        return redirect("https://medical.proyectosproefex.com/showCalendar/".Crypt::encryptString($tokenGoogle->token));
+
         //return view('index', ['data' =>$result->getItems()]);
 
         //Crear Eventos
