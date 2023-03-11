@@ -26,7 +26,7 @@ class MeetController extends Controller
 
       $tokenGoogle = TokenGoogle::find(1);
 
-      $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($tokenGoogle->token);
+      //$tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($tokenGoogle->token);
 
 
       $client->setAccessToken($tokenGoogle->token);
