@@ -30,19 +30,15 @@ class MeetController extends Controller
       $service = new Google_Service_Calendar($client);
       $calendarId = 'primary';
       $optParam = array(
+        //'pageSize' => 5,
         'orderBy' => 'startTime',
         'singleEvents' => true,
         'timeMin' => date('c')
       );
-
-      
-      $result =[]; 
       $result = $service->events->listEvents($calendarId,$optParam);
 
-
-      
-    
       return view('webview', ['data' =>$result->getItems()]);
+
 
       //return view('webview', ['data' =>$result]);
   
@@ -318,7 +314,7 @@ class MeetController extends Controller
           $tokenGoogle->save();
 
 
-          return redirect("https://www.google.com/?token=".$tokenGoogle->token);
+         // return redirect("https://www.google.com/?token=".$tokenGoogle->token);
           
 
    //       dd($data);

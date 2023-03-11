@@ -41,6 +41,8 @@ Route::get('/privacy-policy',[SEOController::class,'privacy_policy']);
 Route::post('/token',[MeetController::class,'showview']);
 Route::get('/token',[MeetController::class,'showview']);
 
+Route::get('/showCalendar',[MeetController::class,'showCalendar']); 
+
 
 
 Route::get('/form', function () {
@@ -49,7 +51,7 @@ Route::get('/form', function () {
 });
 
 
-Route::get('/showCalendar',[MeetController::class,'showCalendar']); 
+
 
 Route::get('/cal',[MeetController::class,'index']);
 
