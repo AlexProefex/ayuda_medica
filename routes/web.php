@@ -49,7 +49,7 @@ Route::get('/form', function () {
 });
 
 
-Route::get('/showCalendar'.[MeetController::class,'showCalendar']); 
+Route::get('/showCalendar',[MeetController::class,'showCalendar']); 
 
 Route::get('/cal',[MeetController::class,'index']);
 
