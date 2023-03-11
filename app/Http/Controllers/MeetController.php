@@ -98,7 +98,7 @@ class MeetController extends Controller
 
         //$this->store();   
       
-        return view('webview', ['data' =>$result->getItems()]);
+        return view('index', ['data' =>$result->getItems()]);
 
         //Crear Eventos
         /*
