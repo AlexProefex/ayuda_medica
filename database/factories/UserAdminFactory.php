@@ -31,7 +31,9 @@ class UserAdminFactory extends Factory
             'schedule' => '[{day: "",checkInTime: null,departureTime: null,disabled: false}]',
             'location' => 'virtual',
             'timezone' => 'America/Lima',
-            'observations' => 'Observaciones'
+            'observations' => 'Observaciones',
+            'idCategory' => 'Medicina',
+            'nColegiatura' => $this->faker->unique()->numberBetween(100000000,999999999),
         ];
     }
 }

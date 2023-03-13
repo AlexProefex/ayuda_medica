@@ -32,6 +32,8 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('timezone')->nullable();
             $table->string('observations')->nullable();
+            $table->string('idCategory');
+            $table->string('nColegiatura');
             $table->rememberToken();
             $table->timestamps();
         });

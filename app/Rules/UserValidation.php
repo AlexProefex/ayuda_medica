@@ -51,6 +51,11 @@ class UserValidation implements Rule
         'phone_number' => 'required|numeric',
         'idRol' => 'required|numeric',
         'date' => ['date_format:Y-m-d'],
+        'nColegiatura' => 'required',
+        'idCategory' => 'required',
+
+
+
       ];
 
       $messages=[
@@ -65,6 +70,8 @@ class UserValidation implements Rule
         'document_number.numeric' => 'El numero de documento debe ser numerico',
         'idRol.required' => 'El rol es requerido',
         'idRol.required' => 'El id debe ser de tipo numerico',
+        'nColegiatura.required' => 'El numero de colegiatura es requerido',
+        'idCategory.required' => 'El id de categoria es requerido',
       ];
         
       if($email){

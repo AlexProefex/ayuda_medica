@@ -271,6 +271,8 @@ class UserAdminsController extends BaseController
           $isNewImage = true;
 
           $useradmin = $this->setDataUserAdminwithValue(new UserAdmin,$input);
+       
+     
           if($useradmin){
             $useradmin->avatar = $avatar['avatar_old'];
           
@@ -464,12 +466,20 @@ class UserAdminsController extends BaseController
         'idUser',
         'schedule',
         'state',
-        'timezone')
+        'timezone',
+        'idCategory',
+        'nColegiatura',
+        'avatar',
+        'observations'
+        )
         ->where('user_admins.idRol','=',2)
         ->where('user_admins.state','=','Activo')
         ->orderBy('user_admins.idUser','desc')
         ->get();
         $doctors = array();
+
+
+
       
         foreach ($users as $user) {
           $specialidad = UserAdmin::select(
@@ -493,8 +503,10 @@ class UserAdminsController extends BaseController
               "state" =>  $user->state,
               "timezone" =>  $user->timezone,
               "specialty" =>  $specialidad,
-
-              
+              "idCategory" =>  $user->idCategory,
+              "nColegiatura" =>  $user->nColegiatura,
+              "observations" =>  $user->observations,
+              "avatar" => $user->avatar,
             ); 
         }
         if(is_null($users))
@@ -716,7 +728,9 @@ class UserAdminsController extends BaseController
         'state',
         'location',
         'timezone',
-        'observations'
+        'observations',
+        'idCategory',
+        'NColegiatura',
         )
       ->where('idUser','=',$idUser)
       ->get();
@@ -742,6 +756,8 @@ class UserAdminsController extends BaseController
         $useradmin->location = $input['location'];
         $useradmin->timezone = $input['timezone'];
         $useradmin->observations = $input['observations'];
+        $useradmin->idCategory = $input['idCategory'];
+        $useradmin->nColegiatura = $input['nColegiatura'];
 
         return $useradmin;
       } catch (\Throwable $e) { 

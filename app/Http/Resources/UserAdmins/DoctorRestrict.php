@@ -3,6 +3,10 @@
 namespace App\Http\Resources\UserAdmins;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use App\Models\UserAdmin;
+
 
 class DoctorRestrict extends JsonResource
 {
@@ -21,7 +25,11 @@ class DoctorRestrict extends JsonResource
             'schedule' => $this->whenNotNull($this['schedule']),
             'state' => $this->whenNotNull($this['state']),
             'timezone' => $this->whenNotNull($this['timezone']),
-            'specialty' => $this->whenNotNull($this['specialty'])
+            'specialty' => $this->whenNotNull($this['specialty']),
+            'idCategory' => $this->whenNotNull($this['idCategory']),
+            'nColegiatura' => $this->whenNotNull($this['nColegiatura']),
+            'observations' => $this->whenNotNull($this['observations']),
+            'avatar' => $this->whenNotNull(Storage::disk('avatar')->url(Str::lower(class_basename(new UserAdmin)).'/'.$this['observations'])),
      
           ];
 

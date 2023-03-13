@@ -71,7 +71,9 @@ class UserAdmin extends Authenticatable
         'specialties',
         'location',
         'timezone',
-        'observations'
+        'observations',
+        'idCategory',
+        'nColegiatura',
 
 
     ];
