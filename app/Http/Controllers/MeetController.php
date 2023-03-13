@@ -313,20 +313,18 @@ class MeetController extends Controller
         else{
 
           $tokenGoogle = TokenGoogle::find(1); 
-          /*if(is_null($tokenGoogle))
+          if(is_null($tokenGoogle))
           {
             $tokenGoogle = new  TokenGoogle();
     
             $tokenGoogle->idUser = 1;
             $tokenGoogle->save();
-          }*/
+          }
 
 
      
-          $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-          $tokenGoogle->token = Crypt::encryptString($token);
-
-
+          $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+          dd($tokenGoogle->token);
           $tokenGoogle->save();
 
 
