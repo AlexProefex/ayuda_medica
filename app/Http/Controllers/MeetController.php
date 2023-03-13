@@ -87,24 +87,24 @@ class MeetController extends Controller
       ///dd($tokenGoogle->token);
 
       //if(isset($_SESSION['access_token']) && $_SESSION['access_token']){
-      if(!is_null($tokenGoogle->token)){
+      if(!is_null(Crypt::decryptString($tokenGoogle->token))){
    
         $client->setAccessToken($tokenGoogle->token);
-        $service = new Google_Service_Calendar($client);
-        $calendarId = 'primary';
-        $optParam = array(
+        //$service = new Google_Service_Calendar($client);
+        //$calendarId = 'primary';
+        //$optParam = array(
           //'pageSize' => 5,
-          'orderBy' => 'startTime',
-          'singleEvents' => true,
-          'timeMin' => date('c')
-        );
-        $result = $service->events->listEvents($calendarId,$optParam);
+        //  'orderBy' => 'startTime',
+        //  'singleEvents' => true,
+        //  'timeMin' => date('c')
+        //);
+        //$result = $service->events->listEvents($calendarId,$optParam);
 
         //Route::apiResource('appointment',AppointmentController::class,['except' => ['destroy']]);
 
         //$this->store(); 
 
-        return redirect("https://medical.proyectosproefex.com/showCalendar/".Crypt::encryptString($tokenGoogle->token));
+        return redirect("https://medical.proyectosproefex.com/showCalendar/".$tokenGoogle->token);
 
         //return view('index', ['data' =>$result->getItems()]);
 
@@ -323,7 +323,7 @@ class MeetController extends Controller
 
 
      
-          $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+          $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode(Crypt::encryptString($_GET['code']));
           $tokenGoogle->save();
 
 
