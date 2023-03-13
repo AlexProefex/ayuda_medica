@@ -27,7 +27,7 @@ class MeetController extends Controller
               "https://medical.proyectosproefex.com/token"
             ]
         ]
-      ]
+      ];
 
     }
 
