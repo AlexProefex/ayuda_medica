@@ -27,6 +27,7 @@ class MeetController extends Controller
       ]);
       
       $client->addScope(Google_Service_Calendar::CALENDAR);
+      
       $guzzleClient = new \GuzzleHttp\Client(array('curl'=>array(CURLOPT_SSL_VERIFYPEER => false)));
       $client->setHttpClient($guzzleClient);
 
@@ -292,6 +293,7 @@ class MeetController extends Controller
       //$data = $request->all();
 
    
+        return $this->index(); 
 
         $rurl = action('App\Http\Controllers\MeetController@showview');
         $client = new Google_Client();
