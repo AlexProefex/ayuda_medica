@@ -291,10 +291,9 @@ class MeetController extends Controller
 
       //$data = $request->all();
 
-
    
 
-        /*$rurl = action('App\Http\Controllers\MeetController@showview');
+        $rurl = action('App\Http\Controllers\MeetController@showview');
         $client = new Google_Client();
         $client->addScope(Google_Service_Calendar::CALENDAR);
         $client->setRedirectUri($rurl);
@@ -305,19 +304,6 @@ class MeetController extends Controller
         $client->setAuthConfigFile('oauth-credentials.json');
         $guzzleClient = new \GuzzleHttp\Client(array('curl'=>array(CURLOPT_SSL_VERIFYPEER => false)));
         $client->setHttpClient($guzzleClient);
-*/
-
-        $tokenGoogle = TokenGoogle::find(1); 
-  //      $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($tokenGoogle->token);
-        $tokenGoogle->save();
-
-        dd(json_encode($tokenGoogle->token));
-        
-        return $this->index(); 
-
-
-
-
   
         if(!isset($_GET['code'])){
           $auth_url = $client->createAuthUrl();
@@ -340,10 +326,15 @@ class MeetController extends Controller
           $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
           $tokenGoogle->save();
 
+
+ 
+          
+
+   //       dd($data);
   
           return $this->index(); 
           
-   
+          //redirect('/cal');
         }
   
       }
