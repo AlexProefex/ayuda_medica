@@ -18,7 +18,7 @@ class MeetController extends Controller
   
             //$query = Crypt::decryptString($query);
 
-      $token =  json_decode(Crypt::decryptString($token));      
+      $token =  json_decode(Crypt::decryptString($token),true);      
 
       $client = new Google_Client();
       $client->setAuthConfig([
