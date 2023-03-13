@@ -71,14 +71,9 @@ class MeetController extends Controller
       $client->addScope(Google_Service_Calendar::CALENDAR);
       $guzzleClient = new \GuzzleHttp\Client(array('curl'=>array(CURLOPT_SSL_VERIFYPEER => false)));
       $client->setHttpClient($guzzleClient);
+
+
       $tokenGoogle = TokenGoogle::find(1);
-
-      try{
-
-
-
-
-
       //dd($tokenGoogle);
 
       if(is_null($tokenGoogle))
@@ -110,9 +105,6 @@ class MeetController extends Controller
         //$this->store(); 
 
         return redirect("https://medical.proyectosproefex.com/showCalendar/".Crypt::encryptString($tokenGoogle->token));
-      
-      }
-
 
         //return view('index', ['data' =>$result->getItems()]);
 
@@ -162,18 +154,9 @@ class MeetController extends Controller
         */
 
         //return $result->getItems();
-      
+      }
       else{
         return redirect('/');
-      }
-
-      } catch (\Throwable $e) {
-        $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($tokenGoogle->token);
-        $tokenGoogle->save();
-          
-        return $this->index(); 
-        
-
       }
 
     }
@@ -308,7 +291,7 @@ class MeetController extends Controller
 
       //$data = $request->all();
 
-      return $this->index(); 
+
    
 
         $rurl = action('App\Http\Controllers\MeetController@showview');
@@ -322,6 +305,14 @@ class MeetController extends Controller
         $client->setAuthConfigFile('oauth-credentials.json');
         $guzzleClient = new \GuzzleHttp\Client(array('curl'=>array(CURLOPT_SSL_VERIFYPEER => false)));
         $client->setHttpClient($guzzleClient);
+
+
+        $tokenGoogle = TokenGoogle::find(1); 
+        $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($tokenGoogle->token);
+        $tokenGoogle->save();
+        return $this->index(); 
+
+
   
         if(!isset($_GET['code'])){
           $auth_url = $client->createAuthUrl();
