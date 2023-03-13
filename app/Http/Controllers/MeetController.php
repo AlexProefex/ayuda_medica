@@ -89,7 +89,7 @@ class MeetController extends Controller
       //if(isset($_SESSION['access_token']) && $_SESSION['access_token']){
       if(!is_null($tokenGoogle->token)){
    
-        $client->setAccessToken(Crypt::decryptString($tokenGoogle->token));
+        $client->setAccessToken($tokenGoogle->token);
         $service = new Google_Service_Calendar($client);
         $calendarId = 'primary';
         $optParam = array(
@@ -104,7 +104,7 @@ class MeetController extends Controller
 
         //$this->store(); 
 
-        return redirect("https://medical.proyectosproefex.com/showCalendar/".$tokenGoogle->token);
+        return redirect("https://medical.proyectosproefex.com/showCalendar/".Crypt::encryptString($tokenGoogle->token));
 
         //return view('index', ['data' =>$result->getItems()]);
 
@@ -323,7 +323,7 @@ class MeetController extends Controller
 
 
      
-          $tokenGoogle->token = Crypt::encryptString($client->fetchAccessTokenWithAuthCode($_GET['code']));
+          $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
           $tokenGoogle->save();
 
 
