@@ -104,7 +104,7 @@ class MeetController extends Controller
 
         //$this->store(); 
 
-        return redirect("https://medical.proyectosproefex.com/showCalendar/".Crypt::encryptString($tokenGoogle->token));
+        return redirect("https://medical.proyectosproefex.com/showCalendar/".$tokenGoogle->token);
 
         //return view('index', ['data' =>$result->getItems()]);
 
@@ -323,7 +323,7 @@ class MeetController extends Controller
 
 
      
-          $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+          $tokenGoogle->token = Crypt::encryptString ($client->fetchAccessTokenWithAuthCode($_GET['code']));
           $tokenGoogle->save();
 
 
