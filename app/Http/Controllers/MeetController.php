@@ -14,6 +14,25 @@ class MeetController extends Controller
 {
     
 
+    private function credentials(){
+      return [
+          "web"=> [
+            "client_id"=> "751933602051-gbb5s7r0lrbbqe8cpcie5htsvgmpn111.apps.googleusercontent.com",
+            "project_id"=> "ayuda-medica-379115",
+            "auth_uri"=> "https://accounts.google.com/o/oauth2/auth",
+            "token_uri"=> "https://oauth2.googleapis.com/token",
+            "auth_provider_x509_cert_url"=> "https://www.googleapis.com/oauth2/v1/certs",
+            "client_secret"=> "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",
+            "redirect_uris"=> [
+              "https://medical.proyectosproefex.com/token"
+            ]
+        ]
+      ]
+
+    }
+
+
+
     public function showCalendar($token){
   
             //$query = Crypt::decryptString($query);
@@ -21,10 +40,8 @@ class MeetController extends Controller
       $token =  json_decode(Crypt::decryptString($token),true);      
 
       $client = new Google_Client();
-      $client->setAuthConfig([
-        'client_id' => '751933602051-gbb5s7r0lrbbqe8cpcie5htsvgmpn111.apps.googleusercontent.com',
-        'client_secret' => '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',
-      ]);
+
+      $client->setAuthConfig($this->credentials());
       
       $client->addScope(Google_Service_Calendar::CALENDAR);
       
@@ -63,10 +80,7 @@ class MeetController extends Controller
       $client = new Google_Client();
       //$client->setAuthConfig('oauth-credentials.json');
 
-      $client->setAuthConfig([
-        'client_id' => '751933602051-gbb5s7r0lrbbqe8cpcie5htsvgmpn111.apps.googleusercontent.com',
-        'client_secret' => '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',
-      ]);
+      $client->setAuthConfig($this->credentials());
       
 
       $client->addScope(Google_Service_Calendar::CALENDAR);
@@ -299,11 +313,8 @@ class MeetController extends Controller
         $client = new Google_Client();
         $client->addScope(Google_Service_Calendar::CALENDAR);
         $client->setRedirectUri($rurl);
-        $client->setAuthConfig([
-          'client_id' => '751933602051-gbb5s7r0lrbbqe8cpcie5htsvgmpn111.apps.googleusercontent.com',
-          'client_secret' => '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',
-        ]);
-        $client->setAuthConfigFile('oauth-credentials.json');
+        $client->setAuthConfig($this->credentials());
+        //$client->setAuthConfigFile('oauth-credentials.json');
         $guzzleClient = new \GuzzleHttp\Client(array('curl'=>array(CURLOPT_SSL_VERIFYPEER => false)));
         $client->setHttpClient($guzzleClient);
   
