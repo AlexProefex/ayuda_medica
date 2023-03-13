@@ -323,7 +323,10 @@ class MeetController extends Controller
 
 
      
-          $tokenGoogle->token = Crypt::encryptString($client->fetchAccessTokenWithAuthCode($_GET['code']));
+          $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+          $tokenGoogle->token = Crypt::encryptString($tokenGoogle->token);
+
+
           $tokenGoogle->save();
 
 
