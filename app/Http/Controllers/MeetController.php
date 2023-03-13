@@ -309,9 +309,9 @@ class MeetController extends Controller
 
         $tokenGoogle = TokenGoogle::find(1); 
   //      $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($tokenGoogle->token);
-  //      $tokenGoogle->save();
+        $tokenGoogle->save();
 
-        dd($tokenGoogle->token);
+        dd(json_encode($tokenGoogle->token));
         
         return $this->index(); 
 
