@@ -18,7 +18,7 @@ class MeetController extends Controller
   
             //$query = Crypt::decryptString($query);
 
-      $token =  Crypt::decryptString($token);      
+      $token =  Crypt::decryptString(json_decode($token));      
 
       $client = new Google_Client();
       $client->setAuthConfig([
@@ -87,9 +87,9 @@ class MeetController extends Controller
       ///dd($tokenGoogle->token);
 
       //if(isset($_SESSION['access_token']) && $_SESSION['access_token']){
-      if(!is_null(Crypt::decryptString($tokenGoogle->token))){
+      if(!is_null(Crypt::decryptString(json_decode($tokenGoogle->token)))){
    
-        $client->setAccessToken(Crypt::decryptString($tokenGoogle->token));
+        $client->setAccessToken(Crypt::decryptString(json_decode($tokenGoogle->token)));
         //$service = new Google_Service_Calendar($client);
         //$calendarId = 'primary';
         //$optParam = array(
@@ -323,8 +323,8 @@ class MeetController extends Controller
 
 
      
-          $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-          dd($tokenGoogle->token);
+          $tokenGoogle->token = Crypt::decryptString(json_encode($client->fetchAccessTokenWithAuthCode($_GET['code'])));
+   
           $tokenGoogle->save();
 
 
