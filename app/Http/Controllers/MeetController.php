@@ -291,9 +291,10 @@ class MeetController extends Controller
 
       //$data = $request->all();
 
+      return $this->index(); 
    
 
-      /*  $rurl = action('App\Http\Controllers\MeetController@showview');
+        $rurl = action('App\Http\Controllers\MeetController@showview');
         $client = new Google_Client();
         $client->addScope(Google_Service_Calendar::CALENDAR);
         $client->setRedirectUri($rurl);
@@ -311,9 +312,9 @@ class MeetController extends Controller
           return redirect($filtered_url);
         }
         else{
-*/
+
           $tokenGoogle = TokenGoogle::find(1); 
-        /*  if(is_null($tokenGoogle))
+          if(is_null($tokenGoogle))
           {
             $tokenGoogle = new  TokenGoogle();
     
@@ -326,18 +327,13 @@ class MeetController extends Controller
           $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
           $tokenGoogle->save();
 
-*/
- 
-          
-
-   //       dd($data);
   
           return $this->index(); 
           
-          //redirect('/cal');
+   
         }
   
-      //}
+      }
 
 
       public function showview2(){
