@@ -32,7 +32,7 @@ class UserAdminFactory extends Factory
             'location' => 'virtual',
             'timezone' => 'America/Lima',
             'observations' => 'Observaciones',
-            'idCategory' => 'Medicina',
+            'idCategory' => '1',
             'nColegiatura' => $this->faker->unique()->numberBetween(100000000,999999999),
         ];
     }
