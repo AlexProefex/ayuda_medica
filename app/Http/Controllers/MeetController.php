@@ -294,7 +294,7 @@ class MeetController extends Controller
 
    
 
-        $rurl = action('App\Http\Controllers\MeetController@showview');
+        /*$rurl = action('App\Http\Controllers\MeetController@showview');
         $client = new Google_Client();
         $client->addScope(Google_Service_Calendar::CALENDAR);
         $client->setRedirectUri($rurl);
@@ -305,13 +305,14 @@ class MeetController extends Controller
         $client->setAuthConfigFile('oauth-credentials.json');
         $guzzleClient = new \GuzzleHttp\Client(array('curl'=>array(CURLOPT_SSL_VERIFYPEER => false)));
         $client->setHttpClient($guzzleClient);
-
+*/
 
         $tokenGoogle = TokenGoogle::find(1); 
-        $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($tokenGoogle->token);
-        $tokenGoogle->save();
+  //      $tokenGoogle->token = $client->fetchAccessTokenWithAuthCode($tokenGoogle->token);
+  //      $tokenGoogle->save();
 
         dd($tokenGoogle->token);
+        
         return $this->index(); 
 
 
