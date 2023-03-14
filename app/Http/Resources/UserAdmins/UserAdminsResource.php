@@ -35,6 +35,7 @@ class UserAdminsResource extends JsonResource
             'timezone' => $this->whenNotNull($this->timezone),
             'observations' => $this->whenNotNull($this->observations),
             'state' => $this->whenNotNull($this->state),
+            'nColegiatura' => $this->whenNotNull($this->nColegiatura),
             'url' => $this->whenNotNull(Storage::disk('avatar')->url(Str::lower(class_basename(new UserAdmin)).'/'.$this->avatar)),
             'speciality' => Specialty::select(
                 'specialties.idSpecialty',
