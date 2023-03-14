@@ -28,7 +28,7 @@ class UserAdminFactory extends Factory
             'state' => 'Activo',
             'password'=> bcrypt('123456789'),
             'date' => $this->faker->date,
-            'schedule' => '[{day: "",checkInTime: null,departureTime: null,disabled: false}]',
+            'schedule' => '[{"day":"","checkInTime":null,"departureTime":null,"disabled":false}]',
             'location' => 'virtual',
             'timezone' => 'America/Lima',
             'observations' => 'Observaciones',

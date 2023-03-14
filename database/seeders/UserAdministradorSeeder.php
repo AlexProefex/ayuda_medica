@@ -30,7 +30,7 @@ class UserAdministradorSeeder extends Seeder
           'state' => 'Activo',
           'password'=> bcrypt('123456789'),
           'date' => '2022-08-26',
-          'schedule' => '[{day: "",checkInTime: null,departureTime: null,disabled: false}]',
+          'schedule' => '[{"day":"","checkInTime":null,"departureTime":null,"disabled":false}]',
           'idCategory'=>'1',
           'nColegiatura'=>'123456789',
           'created_at' => Carbon::now(),
