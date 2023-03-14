@@ -31,7 +31,7 @@ class UserAdministradorSeeder extends Seeder
           'password'=> bcrypt('123456789'),
           'date' => '2022-08-26',
           'schedule' => '[{day: "",checkInTime: null,departureTime: null,disabled: false}]',
-          'idCategory'=>'Medicina',
+          'idCategory'=>'1',
           'nColegiatura'=>'123456789',
           'created_at' => Carbon::now(),
           'updated_at' => Carbon::now(),
