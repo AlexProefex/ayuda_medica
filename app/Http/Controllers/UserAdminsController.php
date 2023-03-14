@@ -138,6 +138,8 @@ class UserAdminsController extends BaseController
         'user_admins.location',
         'user_admins.timezone',
         'user_admins.observations',
+        'user_admins.idCategory',
+        'user_admins.nColegiatura',
         'roles.name as roleName')
       ->join('roles','roles.idRol','=','user_admins.idRol')
       ->orderBy('user_admins.updated_at', 'desc')
@@ -730,7 +732,7 @@ class UserAdminsController extends BaseController
         'timezone',
         'observations',
         'idCategory',
-        'NColegiatura',
+        'nColegiatura',
         )
       ->where('idUser','=',$idUser)
       ->get();
