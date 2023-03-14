@@ -29,7 +29,7 @@ class DoctorRestrict extends JsonResource
             'idCategory' => $this->whenNotNull($this['idCategory']),
             'nColegiatura' => $this->whenNotNull($this['nColegiatura']),
             'observations' => $this->whenNotNull($this['observations']),
-            'avatar' => $this->whenNotNull(Storage::disk('avatar')->url(Str::lower(class_basename(new UserAdmin)).'/'.$this['observations'])),
+            'avatar' => $this->whenNotNull(Storage::disk('avatar')->url(Str::lower(class_basename(new UserAdmin)).'/'.$this['avatar'])),
      
           ];
 
