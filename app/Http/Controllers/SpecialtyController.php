@@ -15,12 +15,19 @@ use App\Rules\SpecialtyValidation;
 class SpecialtyController extends BaseController
 {
     //Listado de especialidades
-    public function index()
+    public function index($id=0)
     {
+      if(boolval($id))
+      {
+        $specialty = Specialty::Where('idCategory',$id)->get();
+     
+      }else{
         $specialty = Specialty::all();
-        if(is_null($specialty))
+      }
+      if(is_null($specialty))
          return $this->responseMessage('not_found','List de Specialty!',[]);
-        return $this->responseMessage('success','List de Specialty!',SpecialtyResource::collection($specialty));
+      return $this->responseMessage('success','List de Specialty!',SpecialtyResource::collection($specialty));
+
     }
 
 
@@ -50,7 +57,6 @@ class SpecialtyController extends BaseController
               $specialty->idCategory = $input['idCategory'];
               $specialty->duration = $input['duration'];
               $specialty->description = $input['description'];
-
               $specialty->save();
         
               return $this->responseMessage('success','Specialty created!', new SpecialtyObject($specialty));
@@ -73,6 +79,11 @@ class SpecialtyController extends BaseController
             $validador = SpecialtyValidation::validateAttributes($input);
             if($validador->valid){
               $specialty = specialty::find($id);
+
+              if(is_null($specialty)){
+                return $this->responseMessage('not_found','Specialty not found','');
+              }
+
               $specialty->name = $input['name'];
               $specialty->idCategory = $input['idCategory'];
               $specialty->duration = $input['duration'];
@@ -89,9 +100,5 @@ class SpecialtyController extends BaseController
           }  
     }
 
-
-
-
-  
 
 }

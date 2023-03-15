@@ -17,8 +17,7 @@ return new class extends Migration
             $table->engine = 'InnoDB';
             $table->bigIncrements('idSpecialty');
             $table->string('name');
-            $table->unsignedBigInteger('idCategory');
-            $table->foreign('idCategory')->references('idCategory')->constrained('service_category')->on('categories')->onUpdate('cascade');
+            $table->bigInteger('idCategory');
             $table->string('duration')->nullable();
             $table->string('description')->nullable();
             $table->string('status')->default('Activo');

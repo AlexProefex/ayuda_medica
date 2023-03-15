@@ -21,12 +21,11 @@ return new class extends Migration
             $table->string('last_name')->fulltext();
             $table->string('document_type');
             $table->string('document_number')->unique()->fulltext();
-            $table->string('phone_number')->nullable();
-            $table->string('email')->nullable();
+            $table->string('phone_number');
+            $table->string('email');
             $table->string('avatar')->default('default-thumbnail.jpg');
             $table->string('birthdate');
             $table->text('diseases')->nullable();
-            //$table->string('password');
             $table->timestamps();
         });
     }

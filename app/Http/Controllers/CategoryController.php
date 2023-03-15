@@ -12,7 +12,7 @@ use App\Rules\CategoryValidation;
 
 class CategoryController extends BaseController
 {
-
+/*
     public function index()
     {
       $category = Category::select(
@@ -50,12 +50,9 @@ class CategoryController extends BaseController
           }  
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
+
+
+
     public function show($id)
     {
       $category = Category::find($id);
@@ -65,24 +62,13 @@ class CategoryController extends BaseController
       return $this->responseMessage('success','Category data!',new CategoryObject($category));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Category $category)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         try {
@@ -104,14 +90,9 @@ class CategoryController extends BaseController
           }  
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Category $category)
     {
         //
     }
+    */
 }

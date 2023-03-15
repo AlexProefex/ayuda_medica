@@ -123,28 +123,10 @@ use ResponseMessageTrait;
         }
 
         return $this->responseMessage($res->status,$res->title,$res->message);
-        /*else{
-
-
-
-          return redirect('http://127.0.0.1:8000/authorize/token');
-
-          return redirect()->action([MeetController::class, 'showview']);
-
-
-          return redirect('https://medical.proyectosproefex.com/test');
-          //->action([MeetController::class, 'showview']);
-          //return redirect('token')
-        }*/
-   
       }
         
     }
 
-    public function hello(){
-      return redirect('http://127.0.0.1:8000/token');
-      return redirect()->action([MeetController::class, 'showview']);
-    }
 
     //Listado de citas medicas con los datos del paciente a quien le pertenece
     public function show($id)
@@ -196,6 +178,11 @@ use ResponseMessageTrait;
         if($validador->valid){
 
           $appointment = Appointment::find($id);
+
+          if (is_null($appointment)) {
+            return $this->responseMessage('not_found','Appointment|Patients not found','');
+          }
+
           $appointment->idCategory = $input['idCategory'];
           $appointment->location = $input['location'];
           $appointment->idDoctor = $input['idDoctor'];
@@ -225,16 +212,21 @@ use ResponseMessageTrait;
       try {
 
         $input = $request->all();  
-        //$validador = AppointmentValidation::validateAttributes($input,false);
-        //if($validador->valid){
+        $validador = AppointmentValidation::validateStatus($input);
+        if($validador->valid){
 
           $appointment = Appointment::find($id);
+          if (is_null($appointment)) {
+            return $this->responseMessage('not_found','Appointment|Patients not found','');
+          }
           $appointment->status = $input['status'];
           $appointment->save();
           
           return $this->responseMessage('success','Appointment created!',new AppointmentObject($appointment));
-        //}
-        ///     return $this->responseMessage('rules','Campos requeridos',$validador->data);
+        }
+        else{
+          return $this->responseMessage('rules','Campos requeridos',$validador->data);
+        }
 
       } catch (\Exception $e) {
         return $this->responseMessage('errorTransaction', 'Ha ocurrido un error');

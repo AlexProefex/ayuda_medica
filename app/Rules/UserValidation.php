@@ -116,4 +116,31 @@ class UserValidation implements Rule
 
       return $res;
     }
+
+
+
+
+
+    public static function validateSchedule($data){
+
+      $res = app()->make('stdClass');
+      $res->valid = true;
+
+      $rules = [
+        'schedule' => 'required',
+      ];
+
+      $messages=[
+        'schedule.required' => 'El horario es requerido',
+      ];
+        
+      $validator = Validator::make( $data, $rules, $messages );
+      if ($validator->fails()) {
+          $res->valid = false;
+          $res->data = $validator->errors(); 
+      }
+
+      return $res;
+    }
 }
+

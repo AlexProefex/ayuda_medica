@@ -22,7 +22,6 @@ class SpecialityUserFactory extends Factory
         return [
             'idSpecialty' => $this->faker->numberBetween(1,12),
             'idUser' => 2,
-            //$this->faker->numberBetween(1,9),
             'status' => 'Activo',
         ];
 

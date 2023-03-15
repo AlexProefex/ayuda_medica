@@ -27,7 +27,6 @@ class ClinicHistoryController extends BaseController
           
           $clinicHistory = new ClinicHistory;
           $clinicHistory->idDoctor = $input['idDoctor'];
-          //$clinicHistory->idConsultory = $input['idConsultory'];
           $clinicHistory->idPatient = $input['idPatient'];
           $clinicHistory->observations = $input['observations'];
           $clinicHistory->save();
@@ -50,14 +49,11 @@ class ClinicHistoryController extends BaseController
       $clinicHistory = ClinicHistory::select(
         'clinic_histories.idClinicHistory',
         'clinic_histories.idDoctor',
-        //'clinic_histories.idConsultory',
         'clinic_histories.created_at as date',
         'user_admins.name as nameDoctor',
         'user_admins.last_name as lastNameDoctor',
-        //'consultories.name as nameConsultory',
         'clinic_histories.observations')
       ->join('user_admins','user_admins.idUser','=','clinic_histories.idDoctor')
-      //->join('consultories','consultories.idConsultory','=','clinic_histories.idConsultory')
       ->where('clinic_histories.idPatient','=',$id)
       ->orderBy('clinic_histories.updated_at', 'desc')
       ->orderBy('clinic_histories.idClinicHistory', 'desc')

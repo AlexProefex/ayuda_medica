@@ -2,12 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Specialty;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 
 class SpecialtySeeder extends Seeder
@@ -20,65 +16,23 @@ class SpecialtySeeder extends Seeder
     public function run()
     {
         DB::table('specialties')->insert([
-            'name' => 'Rehabilitación oral',
+            'name' => 'Medicina General',
+            'idCategory' => 1,
+            'duration' => 60,
+            'description' => 'Medicina General',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
+
         DB::table('specialties')->insert([
-            'name' => 'Periodoncia',
+            'name' => 'Piscologia General',
+            'idCategory' => 2,
+            'duration' => 60,
+            'description' => 'Psicologia General',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
-        DB::table('specialties')->insert([
-            'name' => 'Endodoncia',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-        DB::table('specialties')->insert([
-            'name' => 'Odontopediatría',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-        DB::table('specialties')->insert([
-            'name' => 'Ortodoncia',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-        DB::table('specialties')->insert([
-            'name' => 'Implantología',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-        DB::table('specialties')->insert([
-            'name' => 'Odontología estética',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-        DB::table('specialties')->insert([
-            'name' => 'Odontología preventiva',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-        DB::table('specialties')->insert([
-            'name' => 'Cariología',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-        DB::table('specialties')->insert([
-            'name' => 'Cirugía bucal',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-        DB::table('specialties')->insert([
-            'name' => 'Cirugia Maxilofacial',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-        DB::table('specialties')->insert([
-            'name' => 'Ortopedia maxilar',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
+
 
     }
 }

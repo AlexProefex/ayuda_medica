@@ -28,11 +28,10 @@ return new class extends Migration
             $table->string('password');
             $table->string('date')->nullable();
             $table->text('schedule')->default('[{day: "",checkInTime: null,departureTime: null,disabled: false}]');
-      
             $table->string('location')->nullable();
             $table->string('timezone')->nullable();
             $table->string('observations')->nullable();
-            $table->string('idCategory');
+            $table->bigInteger('idCategory');
             $table->string('nColegiatura');
             $table->rememberToken();
             $table->timestamps();

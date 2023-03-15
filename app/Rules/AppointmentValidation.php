@@ -83,4 +83,30 @@ class AppointmentValidation implements Rule
 
       return $res;
     }
+
+
+
+    public static  function validateStatus($data){
+
+      $res = app()->make('stdClass');
+      $res->valid = true;
+
+      $rules = [
+        'status' => 'required',
+      ];
+
+      $messages=[
+        'status.required' => 'El estado es requerido',
+
+      ];
+
+      $validator = Validator::make( $data, $rules, $messages );
+
+      if ($validator->fails()) {
+        $res->valid = false;
+        $res->data = $validator->errors(); 
+      }
+
+      return $res;
+    }
 }

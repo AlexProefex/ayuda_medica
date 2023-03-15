@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Specialty;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\Category;
+
 
 class SpecialtyResource extends JsonResource
 {
@@ -18,7 +18,7 @@ class SpecialtyResource extends JsonResource
         return[
             'idSpecialty'=> $this->whenNotNull($this->idSpecialty),
             'name' =>  $this->whenNotNull($this->name),
-            'category' =>  $this->whenNotNull(Category::find($this->idCategory,['idCategory','name'])),
+            'idCategory' =>  $this->whenNotNull($this->idCategory),
             'duration' =>  $this->whenNotNull($this->duration),
             'description' =>  $this->whenNotNull($this->description),      
             'status' =>  $this->whenNotNull($this->status),

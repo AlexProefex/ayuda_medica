@@ -39,7 +39,7 @@ class PatientsValidation implements Rule
     }
 
     //Validacion general para los campos necesarios para el registro y actualizacion de un paciente
-    public static  function validateAttributes($data,$email,$document_number){
+    public static  function validateAttributes($data,$document_number){
       $res = app()->make('stdClass');
       $res->valid = true;
 
@@ -49,9 +49,7 @@ class PatientsValidation implements Rule
         'birthdate' => ['date_format:Y-m-d'],'before:today',
         'document_type' => 'required',
         'phone_number' => 'required|numeric',
-        'email' => 'email|required'
-    
-
+        'email' => 'required|email'
       ];
 
       $messages=[
@@ -66,7 +64,6 @@ class PatientsValidation implements Rule
         'phone_number.numeric' => 'El numero de telefono debe ser numerico',
         'email.email' => 'El correo electronico debe tener formato example@domain.com',
         'email.required' => 'El correo electronico es requerido'
-      
       ];
 
 

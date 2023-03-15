@@ -2,10 +2,11 @@
 
 namespace App\Rules;
 
-use Validator;
 use Illuminate\Contracts\Validation\Rule;
+use Validator;
 
-class ExpensesValidation implements Rule
+
+class RoleValidation implements Rule
 {
     /**
      * Create a new rule instance.
@@ -39,26 +40,34 @@ class ExpensesValidation implements Rule
         return 'The validation error message.';
     }
 
-    public static  function validateAttributes($data){
-        /*$rules = [
-            'business' => 'required',
-            'name' => 'required',
-            'email' => 'required|email'
+
+    public static  function validateAttributes($data,$state=false){
+        $res = app()->make('stdClass');
+        $res->valid = true;
+  
+        $rules = [
+          'name' => 'required',
         ];
   
         $messages=[
-            'business.required'=>'El nombre de la Empresa es requerido',
-            'name.required'=>'El nombre del Contacto es requerido',
-            'email.required'=>'El correo electronico  es requerido',
-            'email'=>'El correo electronico debe tener formato example@domain.com',
+          'name.required'=>'El nombre del rol es requerido',
         ];
+  
+     
+        if($state)
+        {
+          $rules = array_merge($rules, array('state' => 'required'));
+          $messages = array_merge($messages, array('state.required' => 'El estado es requerido'));
+        }
+
   
         $validator = Validator::make( $data, $rules, $messages );
   
         if ($validator->fails()) {
-            return [false,$validator->errors()];
-        }*/
+          $res->valid = false;
+          $res->data = $validator->errors(); 
+        }
+        return $res;
   
-        return [true,"exito"=>true];
       }
 }

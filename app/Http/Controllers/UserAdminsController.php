@@ -3,29 +3,21 @@
 namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\UserAdmin;
-use App\Models\UserConsultory;
-use App\Models\Consultory;
 use App\Models\Specialty;
 use App\Models\SpecialityUser;
+use App\Models\PersonalAccessToken;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Laravel\Sanctum\PersonalAccessToken;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Resources\UserAdmins\UserAdminsObject;
 use App\Http\Resources\UserAdmins\UserAdminsCollection;
 use App\Http\Resources\UserAdmins\DoctorResource;
 use App\Http\Resources\UserAdmins\DoctorRestrict;
-
 use App\Http\Resources\UserAdmins\UserAdminsResource;
-use App\Http\Resources\UserAdmins\UserUpdate;
-use App\Http\Resources\UserAdmins\UserAdminsPagination;
 use App\Http\Resources\UserAdmins\UserAdminsResourceSpecialty;
-
 use App\Http\Resources\UserAdmins\UserAdminsRestrict;
-
 
 use App\Rules\UserValidation;
 use App\Traits\ControlUserUpdate;
@@ -48,15 +40,12 @@ class UserAdminsController extends BaseController
           $auth = Auth::guard('admin')->user();
           $success['token'] =  $auth->createToken('LaravelSanctumAuth',['read:limited'])->plainTextToken;
           $useradmin = $this->getUserAdmin($auth->idUser);
-          $consultory = [];
-          //$this->getConsultorysUser($auth->idUser);
           $role = $this->getRoleidUser($auth->idRol);
           $speciality = $this->getEspecialityUser($auth->idUser);
-
-          $res = $this->responseMessageBody('success', 'User logged-in!', UserAdminsCollection::make($role,$useradmin,$consultory,$speciality,$success['token']));
+          $res = $this->responseMessageBody('success', 'User logged-in!', UserAdminsCollection::make(collection:$role,user:$useradmin,speciality:$speciality,token:$success['token']));
      
         } else{ 
-          $res = $this->responseMessageBody('Authorized', 'Unauthorised',['error'=>'Unauthorised','user'=>'credenciales incorrectas']);
+          $res = $this->responseMessageBody('Authorized', 'Unauthorized',['error'=>'Unauthorized','user'=>'credenciales incorrectas']);
         } 
       } catch(\Illuminate\Database\QueryException $e){
         $res = $this->responseMessageBody('errorTransaction', 'Peticion fallida'.$e);
@@ -65,8 +54,6 @@ class UserAdminsController extends BaseController
       } catch (\Throwable $e) {
         $res = $this->responseMessageBody('generalError', 'Ups ha ocurrido un error inesperado'.$e);
       } finally{
-
-        //return UserAdmin::all();
         return $this->responseMessage($res->status,$res->title,$res->message);
       }
 
@@ -76,18 +63,15 @@ class UserAdminsController extends BaseController
     public function getUserbyToken($hashedTooken){
       $res = app()->make('stdClass');
       try {
-        //Sanctum::usePersonalAccessTokenModel(\App\Models\PersonalAccessToken::class);
-        $personalAccessToken = \App\Models\PersonalAccessToken::class;
+        $personalAccessToken = new PersonalAccessToken;
         $token = $personalAccessToken::findToken($hashedTooken);
         $user = $token->tokenable;
         $useradmin = $this->getUserAdmin($user->idUser);
-        $consultory = [];
-        //$this->getConsultorysUser($user->idUser);
         $role = $this->getRoleidUser($user->idRol);
         $speciality = $this->getEspecialityUser($user->idUser);
-        $res = $this->responseMessageBody('success','User logged-in.', UserAdminsCollection::make($role,$useradmin,$consultory,$speciality,$hashedTooken));
+        $res = $this->responseMessageBody('success','User logged-in.', UserAdminsCollection::make(collection:$role,user:$useradmin,speciality:$speciality,token:$hashedTooken));
       } catch (\Exception $e) {
-        $res = $this->responseMessageBody('Authorized','Unauthorised.', ['error'=>'Unauthorised','user'=>'credenciales incorrectas']);
+        $res = $this->responseMessageBody('Authorized','Unauthorized.', ['error'=>'Unauthorized','user'=>'credenciales incorrectas']);
       } catch(\Illuminate\Database\QueryException $e){
         $res = $this->responseMessageBody('errorTransaction', 'Peticion fallida');
       } catch (\Throwable $e) {
@@ -100,19 +84,19 @@ class UserAdminsController extends BaseController
     public function logout($hashedTooken){
       $res = app()->make('stdClass');
       try {
-        $personalAccessToken = \App\Models\PersonalAccessToken::class;
+        $personalAccessToken = new PersonalAccessToken;
         $token = $personalAccessToken::findToken($hashedTooken);
         if(is_null($token)){
-          $res = $this->responseMessageBody('Authorized','Unauthorised.', ['error'=>'Unauthorised']);
+          $res = $this->responseMessageBody('Authorized','Unauthorized.', ['error'=>'Unauthorized']);
         } else{
           $user = $token->tokenable;
           $user->tokens()->delete();
-          $res = $this->responseMessageBody('success','Logout suceess','');
+          $res = $this->responseMessageBody('success','Logout success','');
         }
       } catch (\Exception $e) {
-        $res = $this->responseMessageBody('Authorized','Unauthorised.', ['error'=>'Unauthorised']);
+        $res = $this->responseMessageBody('Authorized','Unauthorized.', ['error'=>'Unauthorized']);
       } catch(\Illuminate\Database\QueryException $e){
-        $res = $this->responseMessageBody('Authorized','Unauthorised.', ['error'=>'Unauthorised']);
+        $res = $this->responseMessageBody('Authorized','Unauthorized.', ['error'=>'Unauthorized']);
       } catch (\Throwable $e) {
         $res = $this->responseMessageBody('generalError', 'Ups ha ocurrido un error inesperado'.$e);
       } finally {
@@ -144,19 +128,13 @@ class UserAdminsController extends BaseController
       ->join('roles','roles.idRol','=','user_admins.idRol')
       ->orderBy('user_admins.updated_at', 'desc')
 		  ->orderBy('user_admins.idUser', 'desc')
-      //->get();
       ->paginate(10);
-
   
       if(is_null($useradmin))
         return $this->responseMessage('not_found','List de Usuarios!',[]);
       return $this->responseMessage('success','List de Admins!', UserAdminsResource::collection($useradmin)->response()->getData(true));
     }
     
-
-
-
-
     //Listado de todos los usuarios con el estado activo
     public function getUserAll()
     {
@@ -178,10 +156,9 @@ class UserAdminsController extends BaseController
         'roles.name as roleName')
       ->join('roles','roles.idRol','=','user_admins.idRol')
       ->where('user_admins.state','Activo')
+      ->orderBy('user_admins.updated_at', 'desc')
+		  ->orderBy('user_admins.idUser', 'desc')
       ->get();
-
-     
-
 
       if(is_null($useradmin))
         return $this->responseMessage('not_found','List de Usuarios!',[]);
@@ -189,6 +166,8 @@ class UserAdminsController extends BaseController
     }
 
     //Busqueda de los usuarios segun una palabra 
+
+    /*
     public function findUser($text="")
     { 
       if($text!=""){
@@ -217,7 +196,7 @@ class UserAdminsController extends BaseController
 
           if(is_null($useradmin))
             return $this->responseMessage('not_found','List de Usuarios!',[]);
-          return $this->responseMessage('success','List de Admins!',UserAdminsResource::collection($useradmin)->response());
+          return $this->responseMessage('success','List de Admins!',UserAdminsResource::collection($useradmin)->response()->getData(true));
       }
       else{
         $useradmin = UserAdmin::select(
@@ -245,7 +224,7 @@ class UserAdminsController extends BaseController
       }
     
     }
-
+  */
 
     public function findUserDni($dni="0")
     { 
@@ -267,14 +246,10 @@ class UserAdminsController extends BaseController
         $validador = UserValidation::validateAttributes($input,false,false, password : true);
         if($validador->valid){
 
-          //$avatar = $this->hasFileImage($request,new UserAdmin, yes);
           $avatar = $this->hasFileImage($request,new UserAdmin);
-
           $isNewImage = true;
-
           $useradmin = $this->setDataUserAdminwithValue(new UserAdmin,$input);
        
-     
           if($useradmin){
             $useradmin->avatar = $avatar['avatar_old'];
           
@@ -326,7 +301,6 @@ class UserAdminsController extends BaseController
       }
 
     }
-
 
     public function registroVoluntario(Request $request)
     {
@@ -401,15 +375,17 @@ class UserAdminsController extends BaseController
     public function show($id)
     {
       try {
+
         $useradmin = $this->getUserAdmin($id);
-        $consultory =  [];
-        //$this->getConsultorysUser($id);
+  
+        if($useradmin=='[]'||$useradmin==[])
+          return  $this->responseMessage('not_found','User not found!','');
+
         $role = $this->getRoleidUser($useradmin[0]['idRol']);
         $speciality = $this->getEspecialityUser($id);
-        if (is_null($useradmin)) {
-          return $this->responseMessage('success','List de Admins!','');
-        }
-        return $this->responseMessage('success','User Admins-in!', UserAdminsCollection::make($role,$useradmin,$consultory,$speciality,null));
+
+        return $this->responseMessage('success','User Admins-in!',UserAdminsCollection::make(collection:$role,user:$useradmin,speciality:$speciality,token:null));
+
       } catch (\Throwable $e) {
         return  $this->responseMessage('generalError', 'Ups ha ocurrido un error inesperado'.$e);
       } 
@@ -519,11 +495,7 @@ class UserAdminsController extends BaseController
     //Actualizar usuario y sus propiedades consultorio, especialdad
     public function update(Request $request, $id)
     {
-      /*$res = app()->make('stdClass'); $avatar = []; $isNewImage = false;
-      $res = $this->controlappointment($id,$request);
-      if($res['specialty'] != [] || $res['consultory'] != []){
-        return $this->responseMessage('rules','campos con citas reservadas', UserUpdate::make($res['consultory'],$res['consultory'],$res['specialty']));
-      }*/
+      $res = app()->make('stdClass');
       $avatar=[]; $isNewImage=false;
       DB::beginTransaction();
       try {
@@ -548,24 +520,6 @@ class UserAdminsController extends BaseController
             $useradmin->state = $input['state'];
             $useradmin->password = $input['password'] !="" ? bcrypt($input['password']) : $useradmin->password;
             $useradmin->save();
-            /*
-            if($request->has('consultories')){
-              $consultories = json_decode($input['consultories'],true);
-              $userConsultory = UserConsultory::where('idUser', '=' ,$useradmin->idUser)->update(['status'=> 'Inactivo']);
-    
-              foreach ($consultories as $consultory) {
-               $userConsultory = UserConsultory::where('idConsultory','=',$consultory)
-               ->where('idUser','=',$useradmin->idUser)
-               ->first();
-    
-                if(!$userConsultory){
-                  $userConsultory = $this->setUserConsultory($useradmin,$consultory);
-                }
-                $userConsultory->status = 'Activo';
-                $userConsultory->save();
-              }
-            }
-            */
   
             if($request->has('specialties')){
               $specialties = json_decode($input['specialties'],true);
@@ -585,8 +539,8 @@ class UserAdminsController extends BaseController
             }
   
             DB::commit();
-            //$this->removeImage($request,$useradmin,$avatar);
             $res = $this->responseMessageBody('success', 'User updated!',new UserAdminsObject($useradmin));
+            $this->removeImage($request,$useradmin,$avatar);
             $res->error = false;
           }
           else{
@@ -620,28 +574,34 @@ class UserAdminsController extends BaseController
 
     }
 
-
     public function updateSchedule(Request $request, $id)
     {
       $res = app()->make('stdClass'); 
       DB::beginTransaction();
       try {
         $input = $request->all();
-        $useradmin = UserAdmin::find($id);
-        ///$validador = UserValidation::validateAttributes($input,$email,$document_number,$state);
-       // if($validador->valid){
-            $useradmin->schedule = $input['schedule'];
-            $useradmin->save();
-            DB::commit();
-            //$this->removeImage($request,$useradmin,$avatar);
-            $res = $this->responseMessageBody('success', 'User updated!',new UserAdminsObject($useradmin));
-            $res->error = false;
-   
-        //}
-        //else{
-         // $res = $this->responseMessageBody('rules', 'Campos requeridos!',$validador->data);
-         // $res->error = true;
-       // }
+
+        $validador = UserValidation::validateSchedule($input);
+        if($validador->valid){
+            $useradmin = UserAdmin::find($id);
+            if(is_null($useradmin))
+            {
+              $res = $this->responseMessageBody('success', 'Usuario no encontrado','');
+              $res->error = true;
+            }
+            else{
+              $useradmin->schedule = $input['schedule'];
+              $useradmin->save();
+              DB::commit();
+              $res = $this->responseMessageBody('success', 'User updated!',new UserAdminsObject($useradmin));
+              $res->error = false;
+            }
+        }
+        else{
+          $res = $this->responseMessageBody('rules', 'Campos requeridos!',$validador->data);
+          $res->error = true;
+        }
+        
       } catch(\Illuminate\Database\QueryException $e){
         $res = $this->responseMessageBody('errorTransaction', 'Peticion fallida'.$e);
         $res->error = true;
@@ -674,26 +634,6 @@ class UserAdminsController extends BaseController
       }
     }
 
-    //Obtiene los consultorios de un usuario
-    private function getConsultorysUser($idUser){
-      $consultory = Consultory::select(
-        'idConsultory',
-        'name',
-        'idManager',
-        'start_time',
-        'end_time')
-      ->whereIn('idConsultory',function($query) use ($idUser)
-      {
-        $query->select('idConsultory')
-              ->from('user_consultories')
-              ->where('user_consultories.idUser','=',$idUser)
-              ->where('user_consultories.status','=','Activo');
-      })
-      ->get();
-
-      return $consultory;
-    
-    }
     //Obtiene los roles de un usuario
     private function getRoleidUser($idRol){
       $role = Role::select('idRol','name')
@@ -743,8 +683,6 @@ class UserAdminsController extends BaseController
       return $useradmin;
     }
 
-
-
     private function setDataUserAdminwithValue($useradmin,$input){
       try{
         $useradmin->name = $input['name'];
@@ -767,13 +705,7 @@ class UserAdminsController extends BaseController
       }
     }
 
-    private function setUserConsultory($useradmin, $consultory){
-      $userConsultory = new UserConsultory;
-      $userConsultory->idUser = $useradmin->idUser;
-      $userConsultory->idConsultory = $consultory;
-      $userConsultory->status = 'Activo';
-      return $userConsultory;
-    }
+
     private function setUserEspecialty($useradmin,$speciality){
       $specialityUser = new SpecialityUser;
       $specialityUser->idUser = $useradmin->idUser;
@@ -781,8 +713,5 @@ class UserAdminsController extends BaseController
       $specialityUser->status = 'Activo';
       return $specialityUser;
     }
-
-
-
     
 }

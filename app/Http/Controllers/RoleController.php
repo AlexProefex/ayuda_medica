@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Resources\Role\RoleResource;
 use App\Http\Resources\Role\RoleObject;
+use App\Rules\RoleValidation;
 class RoleController extends BaseController
 {
     //Listado de todos los roles disponibles
@@ -25,13 +26,19 @@ class RoleController extends BaseController
     public function store(Request $request)
     {
       try {
-          
         $input = $request->all(); 
-        $role = new Role;
-        $role->name = $input['name'];
-        $role->save();
-
-        return $this->responseMessage('success','Role created!', new RoleObject($role));
+        $validador = RoleValidation::validateAttributes($input);
+        
+        if($validador->valid){
+    
+          $role = new Role;
+          $role->name = $input['name'];
+          $role->save();
+          return $this->responseMessage('success','Role created!', new RoleObject($role));
+        }
+        else{
+          return $this->responseMessage('rules', 'Campos requeridos',$validador->data);
+        }
 
       } catch (\Exception $e) {
         return $this->responseMessage('errorTransaction', 'Ha ocurrido un error');
@@ -57,15 +64,22 @@ class RoleController extends BaseController
       try {
           
         $input = $request->all(); 
-
         $role = Role::find($id);
+        if(is_null($role)){
+          return $this->responseMessage('errorTransaction', 'Ha ocurrido un error');
+        }
 
-        $role->name = $input['name'];
-        $role->state = $input['state'];
-        $role->save();
-
-        return $this->responseMessage('success','Role updated!', new RoleObject($role));
-
+        $validador = RoleValidation::validateAttributes($input,state:true);
+        
+        if($validador->valid){
+          $role->name = $input['name'];
+          $role->state = $input['state'];
+          $role->save();
+          return $this->responseMessage('success','Role updated!', new RoleObject($role));
+        }
+        else{
+          return $this->responseMessage('rules', 'Campos requeridos',$validador->data);
+        }
       } catch (\Exception $e) {
         return $this->responseMessage('errorTransaction', 'Ha ocurrido un error');
       } catch(\Illuminate\Database\QueryException $e){
