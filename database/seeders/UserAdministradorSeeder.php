@@ -35,6 +35,7 @@ class UserAdministradorSeeder extends Seeder
           'nColegiatura'=>'123456789',
           'created_at' => Carbon::now(),
           'updated_at' => Carbon::now(),
+          'document_type'=>'DNI',
         ]);
 
     }

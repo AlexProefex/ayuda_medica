@@ -53,6 +53,7 @@ class UserValidation implements Rule
         'date' => ['date_format:Y-m-d'],
         'nColegiatura' => 'required',
         'idCategory' => 'required',
+        'document_type'=>'required'
 
 
 
@@ -72,6 +73,7 @@ class UserValidation implements Rule
         'idRol.required' => 'El id debe ser de tipo numerico',
         'nColegiatura.required' => 'El numero de colegiatura es requerido',
         'idCategory.required' => 'El id de categoria es requerido',
+        'document_type.required' => 'El tipo de documento es requerido'
       ];
         
       if($email){
