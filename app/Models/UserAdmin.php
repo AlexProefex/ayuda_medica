@@ -74,7 +74,7 @@ class UserAdmin extends Authenticatable
         'observations',
         'idCategory',
         'nColegiatura',
-
+        'document_type'
 
     ];
 

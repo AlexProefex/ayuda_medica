@@ -33,6 +33,7 @@ class UserAdminLogin extends JsonResource
             'state' => $this->whenNotNull($this->state),
             'nColegiatura' => $this->whenNotNull($this->nColegiatura),
             'idCategory' => $this->whenNotNull($this->idCategory),
+            'document_type'=> $this->whenNotNull($this->document_type),
             //'url' => $this->whenNotNull(Storage::disk('avatar')->url($this->avatar))
             'url' => $this->whenNotNull(Storage::disk('avatar')->url(Str::lower(class_basename(new UserAdmin)).'/'.$this->avatar))
         ];

@@ -6,7 +6,6 @@ use App\Models\UserAdmin;
 use App\Models\Specialty;
 use App\Models\SpecialityUser;
 use App\Models\PersonalAccessToken;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -52,7 +51,7 @@ class UserAdminsController extends BaseController
       } catch (\Exception $e) {
         $res = $this->responseMessageBody('error', 'Ha ocurrido un error'.$e);
       } catch (\Throwable $e) {
-        $res = $this->responseMessageBody('generalError', 'Ups ha ocurrido un error inesperado'.$e);
+        $res = $this->responseMessageBody('generalError', 'Ups ha ocurrido un error inesperado');
       } finally{
         return $this->responseMessage($res->status,$res->title,$res->message);
       }
@@ -98,7 +97,7 @@ class UserAdminsController extends BaseController
       } catch(\Illuminate\Database\QueryException $e){
         $res = $this->responseMessageBody('Authorized','Unauthorized.', ['error'=>'Unauthorized']);
       } catch (\Throwable $e) {
-        $res = $this->responseMessageBody('generalError', 'Ups ha ocurrido un error inesperado'.$e);
+        $res = $this->responseMessageBody('generalError', 'Ups ha ocurrido un error inesperado');
       } finally {
         return $this->responseMessage($res->status,$res->title,$res->message);
       }
@@ -124,6 +123,7 @@ class UserAdminsController extends BaseController
         'user_admins.observations',
         'user_admins.idCategory',
         'user_admins.nColegiatura',
+        'user_admins.document_type',
         'roles.name as roleName')
       ->join('roles','roles.idRol','=','user_admins.idRol')
       ->orderBy('user_admins.updated_at', 'desc')
@@ -153,6 +153,7 @@ class UserAdminsController extends BaseController
         'user_admins.location',
         'user_admins.timezone',
         'user_admins.observations',
+        'user_admins.document_type',
         'roles.name as roleName')
       ->join('roles','roles.idRol','=','user_admins.idRol')
       ->where('user_admins.state','Activo')
@@ -384,7 +385,7 @@ class UserAdminsController extends BaseController
         $role = $this->getRoleidUser($useradmin[0]['idRol']);
         $speciality = $this->getEspecialityUser($id);
 
-        return $this->responseMessage('success','User Admins-in!',UserAdminsCollection::make(collection:$role,user:$useradmin,speciality:$speciality,token:null));
+        return $this->responseMessage('success','User!',UserAdminsCollection::make(collection:$role,user:$useradmin,speciality:$speciality,token:null));
 
       } catch (\Throwable $e) {
         return  $this->responseMessage('generalError', 'Ups ha ocurrido un error inesperado'.$e);
@@ -400,6 +401,7 @@ class UserAdminsController extends BaseController
         'user_admins.idUser',
         'user_admins.schedule',
         'user_admins.avatar',
+        'user_admins.document_type',
         'user_admins.state')
         ->where('user_admins.idRol','=',2)
         ->where('user_admins.state','=','Activo')
@@ -431,8 +433,8 @@ class UserAdminsController extends BaseController
             ); 
         }
         if(is_null($users))
-          return $this->responseMessage('not_found','List de Doctor!',[]);
-        return $this->responseMessage('success','List de Doctor!',DoctorResource::collection($doctors));
+          return $this->responseMessage('not_found','Listado!',[]);
+        return $this->responseMessage('success','Listado!',DoctorResource::collection($doctors));
     }
 
 
@@ -448,7 +450,8 @@ class UserAdminsController extends BaseController
         'idCategory',
         'nColegiatura',
         'avatar',
-        'observations'
+        'observations',
+        'document_type',
         )
         ->where('user_admins.idRol','=',2)
         ->where('user_admins.state','=','Activo')
@@ -488,8 +491,8 @@ class UserAdminsController extends BaseController
             ); 
         }
         if(is_null($users))
-          return $this->responseMessage('not_found','List de Doctor!',[]);
-        return $this->responseMessage('success','List de Doctor!',DoctorRestrict::collection($doctors));
+          return $this->responseMessage('not_found','Listado!',[]);
+        return $this->responseMessage('success','Listado!',DoctorRestrict::collection($doctors));
     }
 
     //Actualizar usuario y sus propiedades consultorio, especialdad
@@ -673,6 +676,7 @@ class UserAdminsController extends BaseController
         'observations',
         'idCategory',
         'nColegiatura',
+        'document_type'
         )
       ->where('idUser','=',$idUser)
       ->get();
@@ -698,6 +702,8 @@ class UserAdminsController extends BaseController
         $useradmin->observations = $input['observations'];
         $useradmin->idCategory = $input['idCategory'];
         $useradmin->nColegiatura = $input['nColegiatura'];
+        $useradmin->document_type = $input['document_type'];
+        
 
         return $useradmin;
       } catch (\Throwable $e) { 

@@ -27,22 +27,11 @@ class RolesSeeder extends Seeder
         ]);
         DB::table('roles')->insert(
         [
-            'name' => 'DOCTOR',
+            'name' => 'VOLUNTARIO',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
-        DB::table('roles')->insert(
-        [
-            'name' => 'ASISTENTE ADMINISTRADOR',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-        DB::table('roles')->insert(
-        [
-            'name' => 'ASISTENTE MÉDICO',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
+
 
     }
 }

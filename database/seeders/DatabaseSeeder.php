@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             UserAdministradorSeeder::class,
             SpecialtySeeder::class
         ]);
-       \App\Models\UserAdmin::factory(30)->create();
-       \App\Models\Patients::factory(100)->create();
+     //  \App\Models\UserAdmin::factory(30)->create();
+     //  \App\Models\Patients::factory(100)->create();
     }
 }

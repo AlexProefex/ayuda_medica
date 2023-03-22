@@ -23,6 +23,7 @@ class UserAdminsRestrict extends JsonResource
                 'document_number' => $this->whenNotNull($this->document_number),
                 'phone_number' => $this->whenNotNull($this->phone_number),
                 'email' => $this->whenNotNull($this->email),
+                'document_type'=> $this->whenNotNull($this->document_type),
               ]
           ];
     }
